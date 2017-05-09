@@ -19,13 +19,11 @@ use yii\web\HttpException;
 */
 class UserTokenSearch extends UserToken
 {
-	const SCENARIO_API = 'createuserapi';
-    public function rules()
+	public function rules()
     {
          return [
 			[['username','auth_key','password_hash','POSITION_ACCESS'], 'required','on' => self::SCENARIO_USER],	
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
-			[['username','email'], 'required','on' => self::SCENARIO_API],
 			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','email'], 'string'],
 			[['updated_at'],'safe'],
 			[['ACCESS_UNIX','UUID'], 'safe'],
@@ -34,29 +32,37 @@ class UserTokenSearch extends UserToken
 
     public function search($params)
     {
+		
 		$query = UserToken::find();
 			
-			$dataProvider = new ActiveDataProvider([
-				'query' => $query,
-				'pagination'=>[
-					'pageSize'=>100,
-				]   
-			]);
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+			'pagination'=>[
+				'pageSize'=>100,
+			]   
+		]);
 
-			$this->load($params);
-			if (!$this->validate()) {
-				return $dataProvider;
-			}
+		$this->load($params);
+		if (!$this->validate()) {
+			return $dataProvider;
+		}
 
-			$query->andFilterWhere(['like', 'username', $this->username]);
-			// return $dataProvider;
-			if($dataProvider->getmodels()){		
-				return $dataProvider;
-			}else{
-				 //return Yii::$app->statusCode->apihandling(204);
-				// return $this->handleFailure($response);
-				return new \yii\web\HttpException(204, 'Not Data Content');
-			}	
+		$query->orWhere(['username'=> $this->username]);
+		$query->orWhere(['email'=> $this->email]);
+		//$query->orWhere(['ID_FB'=> $this->ID_FB]);
+		// $query->orWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
+		// $query->orWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
+		// $query->orWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+	
+		// $query->andFilterWhere(['like', ]);
+		// return $dataProvider;
+		if($dataProvider->getmodels()){		
+			return $dataProvider;
+		}else{
+			 //return Yii::$app->statusCode->apihandling(204);
+			// return $this->handleFailure($response);
+			return new \yii\web\HttpException(204, 'Not Data Content');
+		}	
     }
 
 }

@@ -114,7 +114,7 @@ class UserTokenController extends ActiveController
                     $searchModel = new UserTokenSearch();
 					
                     if($searchModel){
-						$searchModel->scenario = 'createuserapi';
+						//$searchModel->scenario = 'createuserapi';
 						return $searchModel->search($param);
 					}else{
 						$nodata=[
