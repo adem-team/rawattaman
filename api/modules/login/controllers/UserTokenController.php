@@ -136,7 +136,9 @@ class UserTokenController extends ActiveController
 	public function actionCreate()
     {
 		$params     = $_REQUEST; 
-		$modelCheck = UserToken::find()->where(['username'=>$params['username'],'email'=>$params['email']])->one();
+		$userx		= isset($_REQUEST['username'])!=''?$_REQUEST['username']:'';
+		$email		= isset($_REQUEST['email'])!=''?$_REQUEST['email']:'';	
+		$modelCheck = UserToken::find()->where(['username'=>$userx,'email'=>$email])->one();
 		if($modelCheck){
 			return array('errors'=>'user already exist');
 		}else{
@@ -163,22 +165,33 @@ class UserTokenController extends ActiveController
 	public function actionUpdate()
     {
         $params     = $_REQUEST; 
-		$modelCheck = UserToken::find()->where(['username'=>$params['username'],'email'=>$params['email']])->one();
-		if($modelCheck){
-			$model = UserToken::find()->where(['username'=>$params['username'],'email'=>$params['email']])->one();;
-			$model->scenario = 'createuserapi';			       
-			$model->password_hash = Yii::$app->security->generatePasswordHash($params['new_pass']);
-			$model->new_pass = Yii::$app->security->generatePasswordHash($params['new_pass']);
-			if ($model->save()) 
+		$userx		= isset($_REQUEST['username'])!=''?$_REQUEST['username']:'';
+		$email		= isset($_REQUEST['email'])!=''?$_REQUEST['email']:'';	
+		$new_pass	= isset($_REQUEST['new_pass'])!=''?$_REQUEST['new_pass']:'';	
+		$modelEdit= UserToken::find()->where(['username'=>$userx,'email'=>$email])->one();			
+		if($modelEdit){						
+			$modelEdit->scenario = 'createuserapi';	
+			$modelEdit->username =$userx; //dummy validate variable		
+			$modelEdit->email = $email; //dummy validate variable
+			$modelEdit->new_pass =$new_pass; //dummy validate variable				
+			$modelEdit->password_hash = Yii::$app->security->generatePasswordHash($new_pass);			
+			if ($modelEdit->save()) 
 			{
-				return $model->attributes;
+				return $modelEdit->attributes;
 			} 
 			else
 			{
-				return array('errors'=>$model->errors);
+				return array('errors'=>$modelEdit->errors);
 			} 	
 		}else{
-			return array('errors'=>$model->errors);
+			//hanya Untuk Validasi
+			$modelEditVal = new UserToken();
+			$modelEditVal->scenario = 'createuserapi';
+			$modelEditVal->username =$userx; //dummy validate variable		
+			$modelEditVal->email = $email; //dummy validate variable		
+			$modelEditVal->save();			
+			return array('errors'=>$modelEditVal->errors);
+			
 		}
     }
 }
