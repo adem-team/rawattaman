@@ -30,7 +30,7 @@ $this->registerCss("
 	a:active {
 		color: blue;
 	}
-	#gv-item-per-store .kv-grid-wrapper {
+	#gv-profile .kv-grid-wrapper {
 		position: relative;
 		overflow: auto;
 		height: 500px;
@@ -61,10 +61,10 @@ echo $this->render('modal_item'); //echo difinition
 	$bColor='rgba(87,114,111, 1)';
 	$pageNm='<span class="fa-stack fa-xs text-right" style="color:red">				  
 				  <i class="fa fa-share fa-1x"></i>
-				</span> <b>'.$outletNm.'</b>
+				</span> <b>CLIENT</b>
 	';
 	
-	$gvAttributeItem=[
+	$gvAttriProfile=[
 		[
 			'class'=>'kartik\grid\SerialColumn',
 			'contentOptions'=>['class'=>'kartik-sheet-style'],
@@ -73,10 +73,25 @@ echo $this->render('modal_item'); //echo difinition
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','30px',$bColor,'#ffffff'),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('center','30px',''),
 		],
-		//ITEM NAME
+		//ACCESS_UNIX
 		[
-			'attribute'=>'ITEM_NM',
+			'attribute'=>'ACCESS_UNIX',
 			//'label'=>'Cutomer',
+			'filterType'=>true,
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','200px'),
+			'hAlign'=>'right',
+			'vAlign'=>'middle',
+			'mergeHeader'=>false,
+			'noWrap'=>false,
+			//gvContainHeader($align,$width,$bColor)
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','200px',$bColor),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','200px',''),
+			
+		],
+		//ACCESS_UNIX
+		[
+			'attribute'=>'NM_DEPAN',
+			'label'=>'Nama',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','200px'),
 			'hAlign'=>'right',
@@ -90,12 +105,12 @@ echo $this->render('modal_item'); //echo difinition
 		]	
 	];
 
-	$gvItemPerStore=GridView::widget([
-		'id'=>'gv-item-per-store',
+	$gvProfile=GridView::widget([
+		'id'=>'gv-profile',
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
-		'columns'=>$gvAttributeItem,	
-		'rowOptions'   => function ($model, $key, $index, $grid) {
+		'columns'=>$gvAttriProfile,	
+		/* 'rowOptions'   => function ($model, $key, $index, $grid) {
 			return ['id' => $model->ID,'onclick' => '
 				var url = window.location.href.split("#")[1];	
 				//setTimeout(function(){
@@ -119,12 +134,12 @@ echo $this->render('modal_item'); //echo difinition
 				//}, 100);
 						
 			'];
-		},		
+		},	 */	
 		'pjax'=>true,
 		'pjaxSettings'=>[
 			'options'=>[
 				'enablePushState'=>false,
-				'id'=>'gv-item-per-store',
+				'id'=>'gv-profile',
 		    ],						  
 		],
 		'hover'=>true, //cursor select
@@ -139,7 +154,7 @@ echo $this->render('modal_item'); //echo difinition
 		'panel' => [
 			//'heading'=>false,
 			//'heading'=>tombolBack().'<div style="float:right"> '.tombolCreate().' '.tombolExportExcel().'</div>',  
-			'heading'=>tombolBack().' '.$pageNm,  
+			//'heading'=>tombolBack().' '.$pageNm,  
 			'type'=>'info',
 			//'before'=> tombolBack().'<div style="float:right"> '.tombolCreate().' '.tombolExportExcel().'</div>',
 			//'before'=> tombolBack(),
@@ -151,7 +166,7 @@ echo $this->render('modal_item'); //echo difinition
 		'floatOverflowContainer'=>true,
 		'floatHeader'=>true,
 	]); 
-
+/* 
 	$gvIndex_FormulaHarga= $this->render('_indexFormulaHarga',[
 		'paramCariOutlet'=>$paramCariOutlet,
 		'paramCariItem'=>$paramCariItem
@@ -159,7 +174,7 @@ echo $this->render('modal_item'); //echo difinition
 	$gvIndex_FormulaDiscount= $this->render('_indexFormulaDiscount',[
 		'paramCariOutlet'=>$paramCariOutlet,
 		'paramCariItem'=>$paramCariItem
-	]);
+	]); */
 ?>
 
 <div class="container-fluid" style="font-family: verdana, arial, sans-serif ;font-size: 8pt">
@@ -167,13 +182,13 @@ echo $this->render('modal_item'); //echo difinition
 		<div class="row">
 			<div class="col-xs-6 col-sm-3 col-lg-3" style="font-family: tahoma ;font-size: 9pt;">
 				<div class="row">
-					<?=$gvItemPerStore?>
+					<?=$gvProfile?>
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-9 col-lg-9" style="font-family: tahoma ;font-size: 9pt;">
 				<div class="row">
 					<?php
-						$items=[
+						/* $items=[
 							[
 								'label'=>'<i class="fa fa-sign-in fa-lg"></i>  Formula Harga','content'=>$gvIndex_FormulaHarga,
 								//'active'=>$tab0,
@@ -207,7 +222,7 @@ echo $this->render('modal_item'); //echo difinition
 								//'selectorAttribute' => ['tab'=>'data-target'],
 								// 'backToTop' => true,
 							// ],
-						]);
+						]); */
 					?>
 				</div>
 			</div>
