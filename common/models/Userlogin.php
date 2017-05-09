@@ -65,11 +65,6 @@ class Userlogin extends \yii\db\ActiveRecord
 		return $this->hasOne(UserProfil::className(), ['ACCESS_UNIX' => 'ACCESS_UNIX']);
 	}
 	
-	public function getCorpTbl()
-	{
-		return Corp::find()->Where('FIND_IN_SET("'.$this->ACCESS_UNIX.'", ACCESS_UNIX)');
-	}
-	
 	
 	public function fields()
 	{
@@ -112,15 +107,7 @@ class Userlogin extends \yii\db\ActiveRecord
 			},	
 			'PROFILE_NM'=>function(){
 				return $this->userProfilTbl!=''?$this->userProfilTbl->NM_DEPAN:$this->username;
-			},	
-			'CORP_NM'=>function(){
-				//return $this->corpTbl!=''?$this->corpTbl->CORP_NM:'Nama Perusahaan';
-				return $this->corpTbl!=''?$this->corpTbl->CORP_NM:'Nama Perusahaan';
-			},	
-			// 'CORP_IMG64'=>function(){
-				//return $this->corpTbl!=''?$this->corpTbl->CORP_NM:'Nama Perusahaan';
-				// return $this->corpTbl!=''?$this->corpTbl->CORP_IMG64:$this->noimage;
-			// }	 	
+			}
 		];
 	}
   
