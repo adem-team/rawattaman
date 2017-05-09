@@ -49,10 +49,10 @@ class UserTokenSearch extends UserToken
 
 		$query->orWhere(['username'=> $this->username]);
 		$query->orWhere(['email'=> $this->email]);
-		//$query->orWhere(['ID_FB'=> $this->ID_FB]);
-		// $query->orWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
-		// $query->orWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
-		// $query->orWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+		$query->orWhere(['ID_FB'=> $this->ID_FB]);
+		$query->orWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
+		$query->orWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
+		$query->orWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
 	
 		// $query->andFilterWhere(['like', ]);
 		// return $dataProvider;
