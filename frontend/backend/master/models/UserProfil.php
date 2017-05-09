@@ -4,7 +4,7 @@ namespace frontend\backend\master\models;
 
 use Yii;
 
-use frontend\backend\master\models\UserLogin;
+use frontend\backend\master\models\Userlogin;
 
 /**
  * This is the model class for table "user_profil".
