@@ -14,7 +14,7 @@ use frontend\backend\master\models\Userlogin;
  * @property string $NM_TENGAH
  * @property string $NM_BELAKANG
  * @property string $KTP
- * @property string $ALMAT
+ * @property string $ALAMAT
  * @property string $LAHIR_TEMPAT
  * @property string $LAHIR_TGL
  * @property string $LAHIR_GENDER
@@ -42,7 +42,7 @@ class UserProfil extends \yii\db\ActiveRecord
     {
         return [
             [['ACCESS_UNIX'], 'required'],
-            [['ALMAT'], 'string'],
+            [['ALAMAT'], 'string'],
             [['LAHIR_TGL', 'CREATE_AT', 'UPDATE_AT'], 'safe'],
             [['ACCESS_UNIX', 'NM_DEPAN', 'NM_TENGAH', 'NM_BELAKANG', 'KTP', 'LAHIR_GENDER', 'HP', 'CREATE_BY', 'UPDATE_BY'], 'string', 'max' => 50],
             [['LAHIR_TEMPAT'], 'string', 'max' => 255],
@@ -61,7 +61,7 @@ class UserProfil extends \yii\db\ActiveRecord
             'NM_TENGAH' => 'Nm  Tengah',
             'NM_BELAKANG' => 'Nm  Belakang',
             'KTP' => 'Ktp',
-            'ALMAT' => 'Almat',
+            'ALAMAT' => 'ALAMAT',
             'LAHIR_TEMPAT' => 'Lahir  Tempat',
             'LAHIR_TGL' => 'Lahir  Tgl',
             'LAHIR_GENDER' => 'Lahir  Gender',

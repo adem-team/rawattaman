@@ -142,10 +142,10 @@ class UserTokenController extends ActiveController
 		$userx		= isset($_REQUEST['username'])!=''?$_REQUEST['username']:'';
 		$email		= isset($_REQUEST['email'])!=''?$_REQUEST['email']:'';
 		//Profile
-		$nama		= isset($_REQUEST['nama'])!=''?$_REQUEST['nama']:'';
-		$alamat		= isset($_REQUEST['alamat'])!=''?$_REQUEST['alamat']:'';
-		$hp			= isset($_REQUEST['hp'])!=''?$_REQUEST['hp']:'';
-		$luas_tanah	= isset($_REQUEST['luas_tanah'])!=''?$_REQUEST['luas_tanah']:'';				
+		$nama		= isset($_REQUEST['NAMA'])!=''?$_REQUEST['NAMA']:'';
+		$alamat		= isset($_REQUEST['ALAMAT'])!=''?$_REQUEST['ALAMAT']:'';
+		$hp			= isset($_REQUEST['HP'])!=''?$_REQUEST['HP']:'';
+		$luas_tanah	= isset($_REQUEST['LUAS_TANAH'])!=''?$_REQUEST['LUAS_TANAH']:'';				
 						
 		$modelCheck = UserToken::find()->where(['username'=>$userx,'email'=>$email])->one();
 		if($modelCheck){

@@ -18,7 +18,7 @@ class UserProfilSearch extends UserProfil
     public function rules()
     {
         return [
-            [['ACCESS_UNIX', 'NM_DEPAN', 'NM_TENGAH', 'NM_BELAKANG', 'KTP', 'ALMAT', 'LAHIR_TEMPAT', 'LAHIR_TGL', 'LAHIR_GENDER', 'HP', 'EMAIL', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
+            [['ACCESS_UNIX', 'NM_DEPAN', 'NM_TENGAH', 'NM_BELAKANG', 'KTP', 'ALAMAT', 'LAHIR_TEMPAT', 'LAHIR_TGL', 'LAHIR_GENDER', 'HP', 'EMAIL', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
         ];
     }
 
@@ -68,7 +68,7 @@ class UserProfilSearch extends UserProfil
             ->andFilterWhere(['like', 'NM_TENGAH', $this->NM_TENGAH])
             ->andFilterWhere(['like', 'NM_BELAKANG', $this->NM_BELAKANG])
             ->andFilterWhere(['like', 'KTP', $this->KTP])
-            ->andFilterWhere(['like', 'ALMAT', $this->ALMAT])
+            ->andFilterWhere(['like', 'ALAMAT', $this->ALAMAT])
             ->andFilterWhere(['like', 'LAHIR_TEMPAT', $this->LAHIR_TEMPAT])
             ->andFilterWhere(['like', 'LAHIR_GENDER', $this->LAHIR_GENDER])
             ->andFilterWhere(['like', 'HP', $this->HP])
