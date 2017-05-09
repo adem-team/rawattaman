@@ -15,8 +15,8 @@ use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
+use api\modules\login\models\UserToken;
 use api\modules\login\models\UserTokenSearch;
-use common\models\User;
 
 /**
   * logintest AND CHECK TOKEN USER.
@@ -64,8 +64,9 @@ class UserTokenController extends ActiveController
 				'class' => ContentNegotiator::className(),
 				'formats' => 
                 [
-					'application/json' => Response::FORMAT_JSON,
+					'application/json' => Response::FORMAT_JSON,"JSON_PRETTY_PRINT"
 				],
+				
 			],
 			'corsFilter' => [
 				'class' => \yii\filters\Cors::className(),
@@ -111,7 +112,9 @@ class UserTokenController extends ActiveController
 					$param=["UserTokenSearch"=>Yii::$app->request->queryParams];
 					//return $param;
                     $searchModel = new UserTokenSearch();
+					
                     if($searchModel){
+						$searchModel->scenario = 'createuserapi';
 						return $searchModel->search($param);
 					}else{
 						$nodata=[
@@ -123,7 +126,61 @@ class UserTokenController extends ActiveController
                 },
             ],
         ];
-    }	 
+    }	
+
+	/**
+	* CREATE Validation scnario ['username','email','new_pass'];
+	* Auto generate =auth_key.
+	* Auto generate =password_hash.
+	*/
+	public function actionCreate()
+    {
+		$params     = $_REQUEST; 
+		$modelCheck = UserToken::find()->where(['username'=>$params['username'],'email'=>$params['email']])->one();
+		if($modelCheck){
+			return array('errors'=>'user already exist');
+		}else{
+			$model = new UserToken();
+			$model->scenario = 'createuserapi';			       
+			$model->attributes=$params;
+			$model->auth_key = Yii::$app->security->generateRandomString();
+			$model->password_hash = Yii::$app->security->generatePasswordHash($model->new_pass);
+			$model->create_at = date('Y-m-d H:i:s');//'2017-12-12 00:00';
+			$model->ACCESS_LEVEL = 'client';
+			$datetomecode=str_replace(':','',date('Y:m:d H:i:s'));
+			$model->ACCESS_UNIX = str_replace(' ','',$datetomecode);
+			if ($model->save()) 
+			{
+				return $model->attributes;
+			} 
+			else
+			{
+				return array('errors'=>$model->errors);
+			} 			
+		}
+    }
+	
+	public function actionUpdate()
+    {
+        $params     = $_REQUEST; 
+		$modelCheck = UserToken::find()->where(['username'=>$params['username'],'email'=>$params['email']])->one();
+		if($modelCheck){
+			$model = UserToken::find()->where(['username'=>$params['username'],'email'=>$params['email']])->one();;
+			$model->scenario = 'createuserapi';			       
+			$model->password_hash = Yii::$app->security->generatePasswordHash($params['new_pass']);
+			$model->new_pass = Yii::$app->security->generatePasswordHash($params['new_pass']);
+			if ($model->save()) 
+			{
+				return $model->attributes;
+			} 
+			else
+			{
+				return array('errors'=>$model->errors);
+			} 	
+		}else{
+			return array('errors'=>$model->errors);
+		}
+    }
 }
 
 
