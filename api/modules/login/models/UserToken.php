@@ -9,10 +9,7 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii\base\Model;
 
-use common\models\User;
-use api\modules\login\models\UserImage;
 use api\modules\login\models\UserProfil;
-use api\modules\login\models\Corp;
 
 class UserToken extends \yii\db\ActiveRecord
 //class Userlogintest extends ActiveRecord implements IdentityInterface
@@ -96,8 +93,24 @@ class UserToken extends \yii\db\ActiveRecord
 			},
 			'ID_LINKEDIN'=>function($model){
 					return $model->ID_LINKEDIN;
+			},
+			'NAMA'=>function(){
+				return $this->profileTbl!=''?$this->profileTbl->NM_DEPAN:'none';
+			},	
+			'ALAMAT'=>function(){
+				return $this->profileTbl!=''?$this->profileTbl->ALAMAT:'none';
+			},	
+			'HP'=>function(){
+				return $this->profileTbl!=''?$this->profileTbl->HP:'none';
+			},
+			'LUAS_TANAH'=>function(){
+				return $this->profileTbl!=''?$this->profileTbl->LUAS_TANAH:'none';
 			},				
 		];
 	} 	
+	
+	public function getProfileTbl(){
+		return $this->hasOne(UserProfil::className(), ['ACCESS_UNIX' => 'ACCESS_UNIX']);
+	}
 }
 ?>

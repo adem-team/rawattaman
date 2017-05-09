@@ -133,6 +133,7 @@ class UserTokenController extends ActiveController
 	* CREATE Validation scnario ['username','email','new_pass'];
 	* Auto generate =auth_key.
 	* Auto generate =password_hash.
+	* http://rt.kontrolgampang.com/login/user-tokens?username=x2&email=piter@x.com&new_pass=123&nama=piter&alamat=dutabintaro&hp=081883319929&luas_tanah=100
 	*/
 	public function actionCreate()
     {
@@ -164,7 +165,7 @@ class UserTokenController extends ActiveController
 				$modelProfil= new UserProfil();		
 				$modelProfil->ACCESS_UNIX =	str_replace(' ','',$datetomecode);			
 				$modelProfil->NM_DEPAN =$nama;			
-				$modelProfil->ALMAT =$alamat;			
+				$modelProfil->ALAMAT =$alamat;			
 				$modelProfil->HP =$hp;			
 				$modelProfil->LUAS_TANAH =$luas_tanah;
 				$modelProfil->save();				
