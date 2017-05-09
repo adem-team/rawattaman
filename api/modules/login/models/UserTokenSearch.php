@@ -19,11 +19,14 @@ use yii\web\HttpException;
 */
 class UserTokenSearch extends UserToken
 {
+	const SCENARIO_API = 'createuserapi';
     public function rules()
     {
          return [
-			[['username','auth_key','password_hash','POSITION_ACCESS'], 'required','on' => self::SCENARIO_USER],		
+			[['username','auth_key','password_hash','POSITION_ACCESS'], 'required','on' => self::SCENARIO_USER],	
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
+			[['username','email'], 'required','on' => self::SCENARIO_API],
+			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','email'], 'string'],
 			[['updated_at'],'safe'],
 			[['ACCESS_UNIX','UUID'], 'safe'],
 		];
