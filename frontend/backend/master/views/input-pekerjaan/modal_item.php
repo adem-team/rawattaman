@@ -61,13 +61,13 @@ use yii\helpers\Url;
 	/*
 	 * Button - FHarga CREATE.
 	*/
-	function tombolCreateHarga(){
+	function tombolCreate(){
 		// if(getPermission()){
 			// if(getPermission()->BTN_CREATE==1){
 				//$title1 = Yii::t('app', ' New');
-				$url = Url::toRoute(['/master/formula/create-harga']);
+				$url = Url::toRoute(['/master/formula/create']);
 				$options1 = ['value'=>$url,
-							'id'=>'item-formula-harga-button-create',
+							'id'=>'item-client-button-create',
 							'class'=>"btn btn-default btn-xs"  
 				];
 				$icon1 = '

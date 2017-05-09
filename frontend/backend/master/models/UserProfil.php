@@ -4,6 +4,8 @@ namespace frontend\backend\master\models;
 
 use Yii;
 
+use frontend\backend\master\models\UserLogin;
+
 /**
  * This is the model class for table "user_profil".
  *
@@ -71,4 +73,9 @@ class UserProfil extends \yii\db\ActiveRecord
             'UPDATE_AT' => 'Update  At',
         ];
     }
+	
+	public function getUserTbl()
+	{
+		return $this->hasOne(UserLogin::className(), ['ACCESS_UNIX' => 'ACCESS_UNIX'])->where('ACCESS_LEVEL<>"admin"');
+	}
 }

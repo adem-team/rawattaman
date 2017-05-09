@@ -46,6 +46,7 @@ class InputPekerjaanController extends Controller
 			return $this->render('index', [
 				'searchModel' => $searchModel!=''?$searchModel:false,
 				'dataProvider' => $dataProvider,
+				'paramCari'=>$paramCari
 			]);
     }
 

@@ -5,12 +5,12 @@ namespace frontend\backend\master\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\backend\master\models\UserProfil;
+use frontend\backend\master\models\Todolist;
 
 /**
- * UserProfilSearch represents the model behind the search form of `app\backend\sistem\models\UserProfil`.
+ * TodolistSearch represents the model behind the search form of `frontend\backend\master\models\Todolist`.
  */
-class UserProfilSearch extends UserProfil
+class TodolistSearch extends Todolist
 {
     /**
      * @inheritdoc
@@ -18,7 +18,8 @@ class UserProfilSearch extends UserProfil
     public function rules()
     {
         return [
-            [['ACCESS_UNIX', 'NM_DEPAN', 'NM_TENGAH', 'NM_BELAKANG', 'KTP', 'ALMAT', 'LAHIR_TEMPAT', 'LAHIR_TGL', 'LAHIR_GENDER', 'HP', 'EMAIL', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
+            [['ID', 'STATUS'], 'integer'],
+            [['LIST_NAME', 'KETERANGAN', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class UserProfilSearch extends UserProfil
      */
     public function search($params)
     {
-        $query = UserProfil::find()->JoinWith('userTbl',true,'INNER JOIN');
+        $query = Todolist::find();
 
         // add conditions that should always apply here
 
@@ -58,21 +59,14 @@ class UserProfilSearch extends UserProfil
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'LAHIR_TGL' => $this->LAHIR_TGL,
+            'ID' => $this->ID,
+            'STATUS' => $this->STATUS,
             'CREATE_AT' => $this->CREATE_AT,
             'UPDATE_AT' => $this->UPDATE_AT,
         ]);
 
-        $query->andFilterWhere(['like', 'ACCESS_UNIX', $this->ACCESS_UNIX])
-            ->andFilterWhere(['like', 'NM_DEPAN', $this->NM_DEPAN])
-            ->andFilterWhere(['like', 'NM_TENGAH', $this->NM_TENGAH])
-            ->andFilterWhere(['like', 'NM_BELAKANG', $this->NM_BELAKANG])
-            ->andFilterWhere(['like', 'KTP', $this->KTP])
-            ->andFilterWhere(['like', 'ALMAT', $this->ALMAT])
-            ->andFilterWhere(['like', 'LAHIR_TEMPAT', $this->LAHIR_TEMPAT])
-            ->andFilterWhere(['like', 'LAHIR_GENDER', $this->LAHIR_GENDER])
-            ->andFilterWhere(['like', 'HP', $this->HP])
-            ->andFilterWhere(['like', 'EMAIL', $this->EMAIL])
+        $query->andFilterWhere(['like', 'LIST_NAME', $this->LIST_NAME])
+            ->andFilterWhere(['like', 'KETERANGAN', $this->KETERANGAN])
             ->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
             ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY]);
 

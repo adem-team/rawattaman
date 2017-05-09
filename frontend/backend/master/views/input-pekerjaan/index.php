@@ -61,7 +61,7 @@ echo $this->render('modal_item'); //echo difinition
 	$bColor='rgba(87,114,111, 1)';
 	$pageNm='<span class="fa-stack fa-xs text-right" style="color:red">				  
 				  <i class="fa fa-share fa-1x"></i>
-				</span> <b>CLIENT</b>
+				</span> <b>Input Pekerjaan</b>
 	';
 	
 	$gvAttriProfile=[
@@ -110,31 +110,28 @@ echo $this->render('modal_item'); //echo difinition
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
 		'columns'=>$gvAttriProfile,	
-		/* 'rowOptions'   => function ($model, $key, $index, $grid) {
-			return ['id' => $model->ID,'onclick' => '
+		'rowOptions'   => function ($model, $key, $index, $grid) {
+			return ['id' => $model->ACCESS_UNIX,'onclick' => '
 				var url = window.location.href.split("#")[1];	
-				//setTimeout(function(){
 					//alert(url);
 					if(url=="tab-a"){
 						$.pjax.reload({
-							url: "'.Url::to(['/master/formula']).'?outlet_code=0001&id="+this.id+"#tab-a",
+							url: "'.Url::to(['/master/input-pekerjaan']).'?id="+this.id+"#tab-a",
 							container:"#gv-harga-per-store,#dv-fharga-view"
 						});
 					}else if(url=="tab-b"){
 						$.pjax.reload({
-							url: "'.Url::to(['/master/formula']).'?outlet_code=0001&id="+this.id+"#tab-b",
-							container:"#gv-discount-detail"
+							url: "'.Url::to(['/master/input-pekerjaan']).'?id="+this.id+"#tab-b",
+							container:"#gv-jadwal-input"
 						});
 					}else if(url="undefined"){
 						$.pjax.reload({
-							url: "'.Url::to(['/master/formula']).'?outlet_code=0001&id="+this.id+"#tab-a",
+							url: "'.Url::to(['/master/input-pekerjaan']).'?id="+this.id+"#tab-a",
 							container:"#gv-harga-per-store"
 						});
-					};
-				//}, 100);
-						
+					};						
 			'];
-		},	 */	
+		},	 
 		'pjax'=>true,
 		'pjaxSettings'=>[
 			'options'=>[
@@ -152,9 +149,9 @@ echo $this->render('modal_item'); //echo difinition
 		'panel'=>false,
 		'toolbar' => false,
 		'panel' => [
-			//'heading'=>false,
+			'heading'=>'',
 			//'heading'=>tombolBack().'<div style="float:right"> '.tombolCreate().' '.tombolExportExcel().'</div>',  
-			//'heading'=>tombolBack().' '.$pageNm,  
+			'heading'=>tombolCreate().' '.$pageNm,  
 			'type'=>'info',
 			//'before'=> tombolBack().'<div style="float:right"> '.tombolCreate().' '.tombolExportExcel().'</div>',
 			//'before'=> tombolBack(),
@@ -166,15 +163,15 @@ echo $this->render('modal_item'); //echo difinition
 		'floatOverflowContainer'=>true,
 		'floatHeader'=>true,
 	]); 
-/* 
-	$gvIndex_FormulaHarga= $this->render('_indexFormulaHarga',[
-		'paramCariOutlet'=>$paramCariOutlet,
-		'paramCariItem'=>$paramCariItem
+	
+	$gvIndexJadwal= $this->render('_indexJadwal',[
+		'paramCari'=>$paramCari
 	]);
-	$gvIndex_FormulaDiscount= $this->render('_indexFormulaDiscount',[
-		'paramCariOutlet'=>$paramCariOutlet,
-		'paramCariItem'=>$paramCariItem
-	]); */
+	
+	// $gvIndex_FormulaDiscount= $this->render('_indexFormulaDiscount',[
+		// 'paramCariOutlet'=>$paramCariOutlet,
+		// 'paramCariItem'=>$paramCariItem
+	// ]);
 ?>
 
 <div class="container-fluid" style="font-family: verdana, arial, sans-serif ;font-size: 8pt">
@@ -188,16 +185,21 @@ echo $this->render('modal_item'); //echo difinition
 			<div class="col-xs-6 col-sm-9 col-lg-9" style="font-family: tahoma ;font-size: 9pt;">
 				<div class="row">
 					<?php
-						/* $items=[
+						$items=[
 							[
-								'label'=>'<i class="fa fa-sign-in fa-lg"></i>  Formula Harga','content'=>$gvIndex_FormulaHarga,
+								'label'=>'<i class="fa fa-sign-in fa-lg"></i>  Profile','content'=>'',
 								//'active'=>$tab0,
 								'options' => ['id' => 'tab-a'],
+							],	
+							[
+								'label'=>'<i class="fa fa-sign-in fa-lg"></i>  Jadwal','content'=>$gvIndexJadwal,
+								//'active'=>$tab0,
+								'options' => ['id' => 'tab-b'],
 							],
 							[
-								'label'=>'<i class="fa fa-sign-out fa-lg"></i>  Formula Discount','content'=>$gvIndex_FormulaDiscount,
+								'label'=>'<i class="fa fa-sign-out fa-lg"></i>  Reting','content'=>'',
 								//'active'=>$tab1,
-								'options' => ['id' => 'tab-b'],
+								'options' => ['id' => 'tab-c'],
 							],
 							// [
 								// 'label'=>'<i class="glyphicon glyphicon-briefcase"></i>  Product Forecast ','content'=>'',
@@ -222,7 +224,7 @@ echo $this->render('modal_item'); //echo difinition
 								//'selectorAttribute' => ['tab'=>'data-target'],
 								// 'backToTop' => true,
 							// ],
-						]); */
+						]); 
 					?>
 				</div>
 			</div>
