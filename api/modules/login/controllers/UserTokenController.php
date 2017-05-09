@@ -17,6 +17,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
 use api\modules\login\models\UserToken;
 use api\modules\login\models\UserTokenSearch;
+use api\modules\login\models\UserProfil;
 
 /**
   * logintest AND CHECK TOKEN USER.
@@ -136,8 +137,15 @@ class UserTokenController extends ActiveController
 	public function actionCreate()
     {
 		$params     = $_REQUEST; 
+		//user
 		$userx		= isset($_REQUEST['username'])!=''?$_REQUEST['username']:'';
-		$email		= isset($_REQUEST['email'])!=''?$_REQUEST['email']:'';	
+		$email		= isset($_REQUEST['email'])!=''?$_REQUEST['email']:'';
+		//Profile
+		$nama		= isset($_REQUEST['nama'])!=''?$_REQUEST['nama']:'';
+		$alamat		= isset($_REQUEST['alamat'])!=''?$_REQUEST['alamat']:'';
+		$hp			= isset($_REQUEST['hp'])!=''?$_REQUEST['hp']:'';
+		$luas_tanah	= isset($_REQUEST['luas_tanah'])!=''?$_REQUEST['luas_tanah']:'';				
+						
 		$modelCheck = UserToken::find()->where(['username'=>$userx,'email'=>$email])->one();
 		if($modelCheck){
 			return array('errors'=>'user already exist');
@@ -153,6 +161,13 @@ class UserTokenController extends ActiveController
 			$model->ACCESS_UNIX = str_replace(' ','',$datetomecode);
 			if ($model->save()) 
 			{
+				$modelProfil= new UserProfil();		
+				$modelProfil->ACCESS_UNIX =	str_replace(' ','',$datetomecode);			
+				$modelProfil->NM_DEPAN =$nama;			
+				$modelProfil->ALMAT =$alamat;			
+				$modelProfil->HP =$hp;			
+				$modelProfil->LUAS_TANAH =$luas_tanah;
+				$modelProfil->save();				
 				return $model->attributes;
 			} 
 			else
