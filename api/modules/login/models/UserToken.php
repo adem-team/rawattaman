@@ -48,7 +48,7 @@ class UserToken extends \yii\db\ActiveRecord
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
 			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN'], 'string'],
 			[['updated_at'],'safe'],
-			[['ACCESS_UNIX','UUID','new_pass'], 'safe'],
+			[['ACCESS_UNIX','UUID','new_pass','email'], 'safe'],
 		];
     }
 
