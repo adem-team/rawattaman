@@ -12,6 +12,10 @@ use yii\helpers\view;
 
 use frontend\backend\master\models\UserProfil;
 use frontend\backend\master\models\UserProfilSearch;
+use frontend\backend\master\models\Jadwal;
+use frontend\backend\master\models\JadwalSearch;
+use frontend\backend\master\models\Rating;
+use frontend\backend\master\models\RatingSearch;
 
 /**
  * ItemController implements the CRUD actions for Item model.
@@ -40,14 +44,31 @@ class InputPekerjaanController extends Controller
     public function actionIndex()
     {		
 		$paramCari=Yii::$app->getRequest()->getQueryParam('id');
-			$searchModel = new UserProfilSearch();
-			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);			
-	
-			return $this->render('index', [
-				'searchModel' => $searchModel!=''?$searchModel:false,
-				'dataProvider' => $dataProvider,
-				'paramCari'=>$paramCari
-			]);
+		//List Profile.
+		$searchModel = new UserProfilSearch();
+		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);			
+		//Selected Profile.
+		$searchModelProfile = new UserProfilSearch(['ACCESS_UNIX'=>$paramCari]);
+		$dataProviderProfile = $searchModelProfile->search(Yii::$app->request->queryParams);
+		$modelProfile=$dataProviderProfile->getModels()[0];
+		
+		//jadwal.
+		$searchModelJadwal = new JadwalSearch(['ACCESS_UNIX'=>$paramCari]);
+		$dataProviderJadwal = $searchModelJadwal->search(Yii::$app->request->queryParams);
+		
+		//Rating.
+		$searchModelRating = new RatingSearch();
+        $dataProviderRating = $searchModelRating->search(Yii::$app->request->queryParams);
+		
+		return $this->render('index', [
+			'searchModel' => $searchModel!=''?$searchModel:false,
+			'dataProvider' => $dataProvider,
+			'modelProfile'=>$modelProfile,
+			'searchModelJadwal'=>$searchModelJadwal,
+			'dataProviderJadwal'=>$dataProviderJadwal,
+			'searchModelRating'=>$searchModelRating,
+			'dataProviderRating'=>$dataProviderRating
+		]);
     }
 
     /**

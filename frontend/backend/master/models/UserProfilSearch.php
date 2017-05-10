@@ -61,10 +61,10 @@ class UserProfilSearch extends UserProfil
             'LAHIR_TGL' => $this->LAHIR_TGL,
             'CREATE_AT' => $this->CREATE_AT,
             'UPDATE_AT' => $this->UPDATE_AT,
+			'user_profil.ACCESS_UNIX'=> $this->ACCESS_UNIX
         ]);
 
-        $query->andFilterWhere(['like', 'ACCESS_UNIX', $this->ACCESS_UNIX])
-            ->andFilterWhere(['like', 'NM_DEPAN', $this->NM_DEPAN])
+        $query->andFilterWhere(['like', 'NM_DEPAN', $this->NM_DEPAN])
             ->andFilterWhere(['like', 'NM_TENGAH', $this->NM_TENGAH])
             ->andFilterWhere(['like', 'NM_BELAKANG', $this->NM_BELAKANG])
             ->andFilterWhere(['like', 'KTP', $this->KTP])

@@ -20,19 +20,8 @@ use yii\db\ActiveRecord;
 use yii\data\ArrayDataProvider;
 use kartik\detail\DetailView;
 
-use frontend\backend\master\models\ItemFdiscount;
-use frontend\backend\master\models\ItemFdiscountSearch;
-use frontend\backend\master\models\Item;
-use frontend\backend\master\models\ItemSearch;
 
-	$searchModel = new ItemFdiscountSearch(['ITEM_ID'=>$paramCariItem]);
-    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-	$searchModelItemInfo = new ItemSearch(['ID'=>$paramCariItem]);
-	$dataProviderItemInfo = $searchModelItemInfo->search(Yii::$app->request->queryParams);
-	$modelItemInfo= $dataProviderItemInfo->getModels()[0];
-	
-	$attViewFDiscount=[	
+	/* $attViewFharga=[	
 		[
 			'columns' => [
 				[
@@ -74,108 +63,143 @@ use frontend\backend\master\models\ItemSearch;
 		]			
 	];
 
-	$dvViewFDiscount=DetailView::widget([
-		'id'=>'dv-fdiscount-view',
+	$dvViewFharga=DetailView::widget([
+		'id'=>'dv-fharga-view',
 		'model' => $modelItemInfo,
-		'attributes'=>$attViewFDiscount,
+		'attributes'=>$attViewFharga,
 		'condensed'=>true,
 		'hover'=>true,
 		// 'panel'=>false,
 		// 'mode'=>DetailView::MODE_VIEW,
 		
-	]);
+	]); */
 	
-	$bColorDiscount='rgba(133, 240, 51, 1)';
-	$gvAttDiscount=[
+	$bColorRating='rgba(80, 150, 241, 1)';
+	$gvAttrating=[
 		[
 			'class'=>'kartik\grid\SerialColumn',
 			'contentOptions'=>['class'=>'kartik-sheet-style'],
 			'width'=>'10px',
-			'header'=>tombolCreateDiscount(),
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','30px',$bColorDiscount,'#ffffff'),
+			'header'=>'No.',
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','30px',$bColorRating,'#ffffff'),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('center','30px',''),
 		],
-		//ITEM NAME
+		//TGL
 		[
-			'attribute'=>'ITEM_ID',
-			//'label'=>'Cutomer',
+			'attribute'=>'TGL',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			//gvContainHeader($align,$width,$bColor)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorDiscount),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
+			
+		],	
+		//ACCESS_UNIX
+		[
+			'attribute'=>'ACCESS_UNIX',
+			'filterType'=>true,
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'hAlign'=>'right',
+			'vAlign'=>'middle',
+			'mergeHeader'=>false,
+			'noWrap'=>false,
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
 			
 		]	
-		,//HARI
+		,//JADWAL_ID
 		[
-			'attribute'=>'HARI',
+			'attribute'=>'JADWAL_ID',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			//gvContainHeader($align,$width,$bColor)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorDiscount),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
 			
 		]	
-		,//HARI
+		,//ID_PEKERJA
 		[
-			'attribute'=>'HARI',
+			'attribute'=>'ID_PEKERJA',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			//gvContainHeader($align,$width,$bColor)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorDiscount),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
-		]	
-		,//PERIODE_TGL1
+		]			
+		,
+		//JAM_MASUK
 		[
-			'attribute'=>'PERIODE_TGL1',
+			'attribute'=>'JAM_MASUK',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			//gvContainHeader($align,$width,$bColor)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorDiscount),
+			//gvContainHeader($align,$width,$bColorRating)
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
-		]	
-		,//PERIODE_TGL2
+		],
+		//JAM_KELUAR
 		[
-			'attribute'=>'PERIODE_TGL2',
+			'attribute'=>'JAM_KELUAR',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			//gvContainHeader($align,$width,$bColor)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorDiscount),
+			//gvContainHeader($align,$width,$bColorRating)
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
+		],
+		//NILAI
+		[
+			'attribute'=>'NILAI',
+			'filterType'=>true,
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'hAlign'=>'right',
+			'vAlign'=>'middle',
+			'mergeHeader'=>false,
+			'noWrap'=>false,
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
+		]
+		,//STATUS
+		[
+			'attribute'=>'STATUS',
+			'filterType'=>true,
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'hAlign'=>'right',
+			'vAlign'=>'middle',
+			'mergeHeader'=>false,
+			'noWrap'=>false,
+			//gvContainHeader($align,$width,$bColorRating)
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
 		]	
 	
 	];
 
-	$gvDiscountPerStore=GridView::widget([
-		'id'=>'gv-discount-detail',
-		'dataProvider' => $dataProvider,
-		'filterModel' => $searchModel,
-		'columns'=>$gvAttDiscount,	
+	$gvJadwalInput=GridView::widget([
+		'id'=>'gv-rating',
+		'dataProvider' => $dataProviderRating,
+		'filterModel' => $searchModelRating,
+		'columns'=>$gvAttrating,	
 		'pjax'=>true,
 		'pjaxSettings'=>[
 			'options'=>[
 				'enablePushState'=>false,
-				'id'=>'gv-discount-detail',
+				'id'=>'gv-rating',
 		    ],						  
 		],
 		'hover'=>true, //cursor select
@@ -184,18 +208,22 @@ use frontend\backend\master\models\ItemSearch;
 		'bordered'=>true,
 		'striped'=>true,
 		'autoXlFormat'=>true,
-		'export' => false,
+		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			'heading'=>$dvViewFDiscount.'<style="',
-			'type'=>'success',
+			//'heading'=>$dvViewFharga.'<style="',
+			'type'=>'info',
 			'before'=>false,
 			'footer'=>false,			
-		],		
+		],
 		'summary'=>false,
 		'floatOverflowContainer'=>true,
 		'floatHeader'=>true,
 	]); 
 	
+	
 ?>
-<?=$gvDiscountPerStore?>
+
+
+<?=$gvJadwalInput?>
+

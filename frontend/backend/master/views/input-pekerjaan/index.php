@@ -117,17 +117,22 @@ echo $this->render('modal_item'); //echo difinition
 					if(url=="tab-a"){
 						$.pjax.reload({
 							url: "'.Url::to(['/master/input-pekerjaan']).'?id="+this.id+"#tab-a",
-							container:"#gv-harga-per-store,#dv-fharga-view"
+							container:"#dv-profile"
 						});
 					}else if(url=="tab-b"){
 						$.pjax.reload({
 							url: "'.Url::to(['/master/input-pekerjaan']).'?id="+this.id+"#tab-b",
 							container:"#gv-jadwal-input"
 						});
+					}else if(url=="tab-c"){
+						$.pjax.reload({
+							url: "'.Url::to(['/master/input-pekerjaan']).'?id="+this.id+"#tab-c",
+							container:"#gv-rating"
+						});
 					}else if(url="undefined"){
 						$.pjax.reload({
 							url: "'.Url::to(['/master/input-pekerjaan']).'?id="+this.id+"#tab-a",
-							container:"#gv-harga-per-store"
+							container:"#dv-profile"
 						});
 					};						
 			'];
@@ -164,14 +169,21 @@ echo $this->render('modal_item'); //echo difinition
 		'floatHeader'=>true,
 	]); 
 	
-	$gvIndexJadwal= $this->render('_indexJadwal',[
-		'paramCari'=>$paramCari
+	$dvIndexProfile= $this->render('_indexProfile',[
+		'modelProfile'=>$modelProfile,
 	]);
 	
-	// $gvIndex_FormulaDiscount= $this->render('_indexFormulaDiscount',[
-		// 'paramCariOutlet'=>$paramCariOutlet,
-		// 'paramCariItem'=>$paramCariItem
-	// ]);
+	$gvIndexJadwal= $this->render('_indexJadwal',[
+		'searchModelJadwal'=>$searchModelJadwal,
+		'dataProviderJadwal'=>$dataProviderJadwal
+	]);	
+	
+	$dvIndexRating= $this->render('_indexRating',[
+		'searchModelRating'=>$searchModelRating,
+		'dataProviderRating'=>$dataProviderRating
+	]);
+	
+	
 ?>
 
 <div class="container-fluid" style="font-family: verdana, arial, sans-serif ;font-size: 8pt">
@@ -187,7 +199,7 @@ echo $this->render('modal_item'); //echo difinition
 					<?php
 						$items=[
 							[
-								'label'=>'<i class="fa fa-sign-in fa-lg"></i>  Profile','content'=>'',
+								'label'=>'<i class="fa fa-sign-in fa-lg"></i>  Profile','content'=>$dvIndexProfile,
 								//'active'=>$tab0,
 								'options' => ['id' => 'tab-a'],
 							],	
@@ -197,14 +209,10 @@ echo $this->render('modal_item'); //echo difinition
 								'options' => ['id' => 'tab-b'],
 							],
 							[
-								'label'=>'<i class="fa fa-sign-out fa-lg"></i>  Reting','content'=>'',
+								'label'=>'<i class="fa fa-sign-out fa-lg"></i>  Reting','content'=>$dvIndexRating,
 								//'active'=>$tab1,
 								'options' => ['id' => 'tab-c'],
-							],
-							// [
-								// 'label'=>'<i class="glyphicon glyphicon-briefcase"></i>  Product Forecast ','content'=>'',
-								// 'options' => ['id' => 'history-tab'],
-							// ]
+							]
 						];
 						
 						echo TabsX::widget([

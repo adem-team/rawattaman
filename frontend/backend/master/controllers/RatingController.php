@@ -3,11 +3,12 @@
 namespace frontend\backend\master\controllers;
 
 use Yii;
-use frontend\backend\master\models\Rating;
-use frontend\backend\master\models\RatingSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
+use frontend\backend\master\models\Rating;
+use frontend\backend\master\models\RatingSearch;
 
 /**
  * RatingController implements the CRUD actions for Rating model.

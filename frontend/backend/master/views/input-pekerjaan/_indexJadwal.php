@@ -20,11 +20,6 @@ use yii\db\ActiveRecord;
 use yii\data\ArrayDataProvider;
 use kartik\detail\DetailView;
 
-use frontend\backend\master\models\Jadwal;
-use frontend\backend\master\models\JadwalSearch;
-	
-	$searchModelJadwal = new JadwalSearch(['ACCESS_UNIX'=>$paramCari]);
-	$dataProviderJadwal = $searchModelJadwal->search(Yii::$app->request->queryParams);
 
 	/* $attViewFharga=[	
 		[
