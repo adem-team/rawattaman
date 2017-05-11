@@ -15,7 +15,9 @@ use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
-use api\modules\master\models\StoreSearch;
+
+use api\modules\master\models\Rating;
+use api\modules\master\models\RatingSearch;
 
 /**
   * Data user login by Token.
@@ -25,16 +27,15 @@ use api\modules\master\models\StoreSearch;
   * CMD : curl -i http://api.kontrolgampang.int/login/users -H "Authorization: Bearer Yt4kLWLYlQf9OfnFSpZ5IO3128Gvw2gP"
   *   http://api.kontrolgampang.com/master/stores?ACCESS_UNIX=20170404081601
  */
-class StoreController extends ActiveController
+class RatingController extends ActiveController
 {	
 	/**
 	  * Source Database declaration 
 	 */
-    //public $modelClass = 'common\models\User';
-    public $modelClass = 'api\modules\master\models\StoreSearch';
+    public $modelClass = 'api\modules\master\models\RatingSearch';
 	public $serializer = [
 		'class' => 'yii\rest\Serializer',
-		'collectionEnvelope' => 'store',
+		'collectionEnvelope' => 'rating',
 	];
 	
 	/**
@@ -81,10 +82,10 @@ class StoreController extends ActiveController
                 'class' => 'yii\rest\IndexAction',
                 'modelClass' => $this->modelClass,
                 'prepareDataProvider' => function () {					
-					$param=["StoreSearch"=>Yii::$app->request->queryParams];
+					$param=["RatingSearch"=>Yii::$app->request->queryParams];
 					//return $param;
-                    $searchModel = new StoreSearch();
-					return $searchModel->searchUserStore($param);
+                    $searchModel = new RatingSearch();
+					return $searchModel->search($param);
                 },
             ],
         ];

@@ -24,7 +24,7 @@ use api\modules\master\models\JadwalSearch;
   * @author ptrnov  <piter@lukison.com>
   * @since 1.1
   * CMD : curl -i http://api.kontrolgampang.int/login/users -H "Authorization: Bearer Yt4kLWLYlQf9OfnFSpZ5IO3128Gvw2gP"
-  *   http://api.kontrolgampang.com/master/stores?ACCESS_UNIX=20170404081601
+  *   http://rt.kontrolgampang.com/master/jadwal-junjungans?ACCESS_UNIX=20170404081602
  */
 class JadwalJunjunganController extends ActiveController
 {	

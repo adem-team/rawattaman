@@ -90,6 +90,7 @@ return [
                         'class' => 'yii\rest\UrlRule',
                         'controller' =>[
 							'master/jadwal-junjungan',												
+							'master/rating',												
 						],
 						'patterns' => [
 							'PUT,PATCH {id}' => 'update',
