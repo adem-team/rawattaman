@@ -19,7 +19,33 @@ use yii\web\Request;
 use yii\db\ActiveRecord;
 use yii\data\ArrayDataProvider;
 use kartik\detail\DetailView;
-
+$this->registerCss("
+	#gv-rating .kv-grid-table :link {
+		color: #fdfdfd;
+	}
+	// mouse over link 
+	a:hover {
+		color: #5a96e7;
+	}
+	//selected link 
+	a:active {
+		color: blue;
+	}
+	/* HEIGHT PANEL*/
+	#gv-rating .panel {
+		height: 500px;
+	}
+	/* CONTINER HIGHT */
+	#gv-rating .kv-grid-container{
+		height: 500px;
+	}
+	/* PANEL COLOR */
+	/* #gv-product .panel-default > .panel-heading {
+	  color: #333;
+	  background-color: rgba(206, 137, 235, 1);
+	  border-color: #ddd;
+	} */
+");
 
 	/* $attViewFharga=[	
 		[

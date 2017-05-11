@@ -66,13 +66,13 @@ class Pekerja extends \yii\db\ActiveRecord
 			'HP'=>function($model){
 				return $model->HP;
 			},				
-			'PHOTO'=>function(){
-				return $this->pekerjaImgTbl->IMAGE_64;
-			}
+			// 'PHOTO'=>function(){
+				// return $this->pekerjaImgTbl->IMAGE_64;
+			// }
 		];
 	}
 	
-	public function getPekerjaImgTbl(){
-		return $this->hasOne(PekerjaImg::className(),['ID_PEKERJA'=>'ID_PEKERJA']);
-	}
+	// public function getPekerjaImgTbl(){
+		// return $this->hasOne(PekerjaImg::className(),['ID_PEKERJA'=>'ID_PEKERJA']);
+	// }
 }

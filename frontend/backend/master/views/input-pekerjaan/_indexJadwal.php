@@ -19,7 +19,34 @@ use yii\web\Request;
 use yii\db\ActiveRecord;
 use yii\data\ArrayDataProvider;
 use kartik\detail\DetailView;
-
+use kartik\widgets\TimePicker;
+$this->registerCss("
+	.kv-grid-table :link {
+		color: #fdfdfd;
+	}
+	// mouse over link 
+	a:hover {
+		color: #5a96e7;
+	}
+	//selected link 
+	a:active {
+		color: blue;
+	}
+	/* HEIGHT PANEL*/
+	#gv-jadwal-input .panel {
+		height: 500px;
+	}
+	/* CONTINER HIGHT */
+	#gv-jadwal-input .kv-grid-container{
+		height: 500px;
+	}
+	/* PANEL COLOR */
+	#gv-product .panel-default > .panel-heading {
+	  color: #333;
+	  background-color: rgba(206, 137, 235, 1);
+	  border-color: #ddd;
+	}
+");
 
 	/* $attViewFharga=[	
 		[
@@ -86,7 +113,7 @@ use kartik\detail\DetailView;
 		],
 		//ACCESS_UNIX
 		[
-			'attribute'=>'ACCESS_UNIX',
+			'attribute'=>'ClientNm',
 			//'label'=>'Cutomer',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
@@ -98,11 +125,30 @@ use kartik\detail\DetailView;
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
 			
+		],		
+		[
+			'attribute'=>'ACCESS_UNIX',
+			//'label'=>'Cutomer',
+			'filterType'=>true,
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','40px'),
+			'hAlign'=>'right',
+			'vAlign'=>'middle',
+			'mergeHeader'=>false,
+			'noWrap'=>false,
+			//gvContainHeader($align,$width,$bColorJadwal)
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','40px',$bColorJadwal),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','40px',''),
+			
 		],
 		//TGL
 		[
 			'attribute'=>'TGL',
-			'filterType'=>true,
+			'filterType'=>GridView::FILTER_DATE,
+			'filterWidgetOptions'=>[
+				'pluginOptions' =>Yii::$app->gv->gvPliginDate(),
+				'layout'=>'{picker}{remove}{input}'
+			],
+			'filter'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
@@ -110,7 +156,7 @@ use kartik\detail\DetailView;
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50px',''),
 			
 		],			
 		//HARI
@@ -131,7 +177,16 @@ use kartik\detail\DetailView;
 		,//JAM_MASUK
 		[
 			'attribute'=>'JAM_MASUK',
-			'filterType'=>true,
+			'filterType'=>GridView::FILTER_DATETIME,
+			'filterWidgetOptions'=>[
+				'name'=>'jam-masuk',
+				'pluginOptions' => [
+					'calendarWeeks' => false,
+					'autoclose' => true,
+					'format' => 'hh:ii'
+				]
+			],			
+			'filter'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
@@ -139,20 +194,28 @@ use kartik\detail\DetailView;
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50px',''),			
 		]			
 		,//JAM_KELUAR
 		[
 			'attribute'=>'JAM_KELUAR',
-			'filterType'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'filterType'=>GridView::FILTER_DATETIME,
+			'filterWidgetOptions'=>[
+				'name'=>'jam-keluar',
+				'pluginOptions' => [
+					'calendarWeeks' => false,
+					'autoclose' => true,
+					'format' => 'hh:ii'
+				]
+			],			
+			'filter'=>true,
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50px',''),			
 		]
 		,//STATUS
 		[

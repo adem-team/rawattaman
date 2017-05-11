@@ -4,6 +4,8 @@ namespace frontend\backend\master\models;
 
 use Yii;
 
+use frontend\backend\master\models\UserProfil;
+
 class Jadwal extends \yii\db\ActiveRecord
 {
     /**
@@ -20,7 +22,7 @@ class Jadwal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['TGL', 'JAM_MASUK', 'JAM_KELUAR', 'CREATE_AT', 'UPDATE_AT'], 'safe'],
+            [['TGL', 'JAM_MASUK', 'JAM_KELUAR', 'CREATE_AT', 'UPDATE_AT','ClientNm'], 'safe'],
             [['TODOLIST', 'KETERANGAN'], 'string'],
             [['STATUS'], 'integer'],
             [['ACCESS_UNIX', 'ID_PEKERJA', 'CREATE_BY', 'UPDATE_BY'], 'string', 'max' => 50],
@@ -48,6 +50,7 @@ class Jadwal extends \yii\db\ActiveRecord
             'CREATE_AT' => Yii::t('app', 'Create  At'),
             'UPDATE_BY' => Yii::t('app', 'Update  By'),
             'UPDATE_AT' => Yii::t('app', 'Update  At'),
+            'ClientNm' => Yii::t('app', 'CLient'),
         ];
     }
 	public function fields()
@@ -76,7 +79,18 @@ class Jadwal extends \yii\db\ActiveRecord
 			},
 			'STATUS'=>function($model){
 				return $model->STATUS;
-			}	
+			},
+			'CLIENT'=>function(){
+				return $this->profileTbl->NM_DEPAN;
+			}
 		];
+	}
+	
+	public  function  getProfileTbl(){
+		return $this->hasOne(UserProfil::className(),['ACCESS_UNIX'=>'ACCESS_UNIX']);
+	}
+	
+	public function getClientNm(){
+		return $this->profileTbl->NM_DEPAN;
 	}
 }
