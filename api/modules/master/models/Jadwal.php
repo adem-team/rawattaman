@@ -7,6 +7,7 @@ use Yii;
 use api\modules\master\models\Pekerja;
 use api\modules\master\models\DataPekerja;
 use api\modules\master\models\PekerjaSearch;
+use api\modules\master\models\Todolist;
 
 class Jadwal extends \yii\db\ActiveRecord
 {
@@ -88,7 +89,7 @@ class Jadwal extends \yii\db\ActiveRecord
 		];
 	}
 	
-	//Join TABLE Pekerja
+	//Join TABLE Pekerja - NO IMAGE
 	public function getPekerjaTbl(){
 		//return $this->hasMany(Item::className(), ['OUTLET_CODE' => 'OUTLET_CODE']);//->from(['formula' => Item::tableName()]);
 		//$inKondition=('FIND_IN_SET("'.$this->ID_PEKERJA.'", ID_PEKERJA)');
@@ -99,14 +100,19 @@ class Jadwal extends \yii\db\ActiveRecord
 		$model = Pekerja::find()->Where('FIND_IN_SET( ID_PEKERJA,"'.$this->ID_PEKERJA.'")')->all();
 		return $model;
 	}	
-	//Join TABLE Pekerja
+	//Join TABLE Pekerja - WITH IMAGE
 	public function getIMG_PEKERJA(){
 		$model = DataPekerja::find()->Where('FIND_IN_SET( ID_PEKERJA,"'.$this->ID_PEKERJA.'")')->all();
+		return $model;
+	}	
+	//Join TABLE - TODOLIST
+	public function getTodolist(){
+		$model = Todolist::find()->Where('FIND_IN_SET( ID,"'.$this->TODOLIST.'")')->all();
 		return $model;
 	}	
 	
 	public function extraFields()
 	{
-		return ['IMG_PEKERJA'];
+		return ['IMG_PEKERJA','Todolist'];
 	}
 }
