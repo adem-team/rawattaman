@@ -8,6 +8,7 @@ use api\modules\master\models\Pekerja;
 use api\modules\master\models\DataPekerja;
 use api\modules\master\models\PekerjaSearch;
 use api\modules\master\models\Todolist;
+use api\modules\master\models\Rating;
 
 class Jadwal extends \yii\db\ActiveRecord
 {
@@ -110,9 +111,15 @@ class Jadwal extends \yii\db\ActiveRecord
 		$model = Todolist::find()->Where('FIND_IN_SET( ID,"'.$this->TODOLIST.'")')->all();
 		return $model;
 	}	
+	//Join TABLE - RATING
+	public function getDataRating(){
+		//return $this->hasOne(Rating::className(),['ACCESS_UNIX'=>'ACCESS_UNIX','JADWAL_ID'=>'ID']);
+		$model = Rating::find()->Where('ACCESS_UNIX=ACCESS_UNIX AND JADWAL_ID=ID')->All();
+		return $model;
+	}	
 	
 	public function extraFields()
 	{
-		return ['IMG_PEKERJA','Todolist'];
+		return ['IMG_PEKERJA','Todolist','DataRating'];
 	}
 }
