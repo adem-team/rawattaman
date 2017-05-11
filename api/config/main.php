@@ -94,13 +94,9 @@ return [
 							'master/pekerja',												
 						],
 						'patterns' => [
-							'PUT,PATCH {id}' => 'update',
-							'DELETE {id}' => 'delete',
-							'GET,HEAD {id}' => 'view',
+							'PUT' => 'update',
 							'POST' => 'create',
-							'GET,HEAD' => 'index',
-							'{id}' => 'options',
-							'' => 'options',
+							'GET,HEAD' => 'index'							
 						]
                         //'extraPatterns' => ['GET search' => 'search'],
 

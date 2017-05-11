@@ -89,7 +89,23 @@ class RatingController extends ActiveController
                 },
             ],
         ];
-    }	 	 
+    }
+
+	public function actionUpdate()
+    {
+        $params     	= $_REQUEST; 
+		$JADWAL_ID		= isset($_REQUEST['JADWAL_ID'])!=''?$_REQUEST['JADWAL_ID']:'';
+		$model= Rating::find()->where(['JADWAL_ID'=>$JADWAL_ID])->one();	
+		$model->attributes=$params;				
+		if ($model->save()) 
+		{
+			return $model->attributes;
+		} 
+		else
+		{
+			return array('errors'=>$model->errors);
+		} 			
+    }
 }
 
 
