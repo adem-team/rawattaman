@@ -91,6 +91,7 @@ return [
                         'controller' =>[
 							'master/jadwal-junjungan',												
 							'master/rating',												
+							'master/pekerja',												
 						],
 						'patterns' => [
 							'PUT,PATCH {id}' => 'update',
