@@ -4,22 +4,8 @@ namespace api\modules\master\models;
 
 use Yii;
 
-/**
- * This is the model class for table "pekerja".
- *
- * @property string $ID_PEKERJA
- * @property string $NAMA
- * @property string $KTP
- * @property string $GENDER
- * @property string $TGL_LAHIR
- * @property string $ALAMAT
- * @property string $HP
- * @property string $EMAIL
- * @property string $CREATE_BY
- * @property string $CREATE_AT
- * @property string $UPDATE_BY
- * @property string $UPDATE_AT
- */
+use api\modules\master\models\PekerjaImg;
+
 class Pekerja extends \yii\db\ActiveRecord
 {
     /**
@@ -51,7 +37,7 @@ class Pekerja extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ID_PEKERJA' => Yii::t('app', 'Id  Pekerja'),
+            'ID_PEKERJA' => Yii::t('app', 'Id.Pekerja'),
             'NAMA' => Yii::t('app', 'Nama'),
             'KTP' => Yii::t('app', 'Ktp'),
             'GENDER' => Yii::t('app', 'Gender'),
@@ -81,8 +67,12 @@ class Pekerja extends \yii\db\ActiveRecord
 				return $model->HP;
 			},				
 			'PHOTO'=>function(){
-				return 'none';
+				return $this->pekerjaImgTbl->IMAGE_64;
 			}
 		];
+	}
+	
+	public function getPekerjaImgTbl(){
+		return $this->hasOne(PekerjaImg::className(),['ID_PEKERJA'=>'ID_PEKERJA']);
 	}
 }

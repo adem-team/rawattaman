@@ -91,10 +91,11 @@ class Jadwal extends \yii\db\ActiveRecord
 	public function getPekerjaTbl(){
 		//return $this->hasMany(Item::className(), ['OUTLET_CODE' => 'OUTLET_CODE']);//->from(['formula' => Item::tableName()]);
 		//$inKondition=('FIND_IN_SET("'.$this->ID_PEKERJA.'", ID_PEKERJA)');
-		$this->inKondition=$this->ID_PEKERJA;
+		//$this->inKondition=$this->ID_PEKERJA;
 		//return $this->hasMany(Pekerja::className(), ['ID_PEKERJA' =>'ID_PEKERJA']);//->andWhere('FIND_IN_SET( ID_PEKERJA,"'.$this->ID_PEKERJA.'")');
 		//return $this->hasMany(Pekerja::className(),['ID_PEKERJA' =>'inKondition']);//->andWhere(['ID_PEKERJA' =>'ID_PEKERJA']);//->Where('FIND_IN_SET("'.$this->ID_PEKERJA.'", ID_PEKERJA)');
-		$model = Pekerja::find()->Where(['ID_PEKERJA'=>['RT0001','RT0002']])->all();
+		//$model = Pekerja::find()->Where(['ID_PEKERJA'=>['RT0001','RT0002']])->all();
+		$model = Pekerja::find()->Where('FIND_IN_SET( ID_PEKERJA,"'.$this->ID_PEKERJA.'")')->all();
 		return $model;
-	}
+	}	
 }

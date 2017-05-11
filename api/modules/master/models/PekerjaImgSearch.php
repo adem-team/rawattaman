@@ -5,12 +5,12 @@ namespace api\modules\master\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use api\modules\master\models\Jadwal;
+use api\modules\master\models\PekerjaImg;
 
 /**
- * JadwalSearch represents the model behind the search form of `frontend\backend\master\models\Jadwal`.
+ * PekerjaImgSearch represents the model behind the search form of `frontend\backend\master\models\PekerjaImg`.
  */
-class JadwalSearch extends Jadwal
+class PekerjaImgSearch extends PekerjaImg
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class JadwalSearch extends Jadwal
     public function rules()
     {
         return [
-            [['ID', 'STATUS'], 'integer'],
-            [['ACCESS_UNIX', 'ID_PEKERJA', 'HARI', 'TGL', 'JAM_MASUK', 'JAM_KELUAR', 'TODOLIST', 'KETERANGAN', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
+            [['ID_PEKERJA', 'IMAGE_64', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
+            [['STATUS'], 'integer'],
         ];
     }
 
@@ -41,7 +41,7 @@ class JadwalSearch extends Jadwal
      */
     public function search($params)
     {
-        $query = Jadwal::find();
+        $query = PekerjaImg::find();
 
         // add conditions that should always apply here
 
@@ -59,30 +59,16 @@ class JadwalSearch extends Jadwal
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ID' => $this->ID,
-			'ACCESS_UNIX'=>$this->ACCESS_UNIX,
-            'TGL' => $this->TGL,
-            'JAM_MASUK' => $this->JAM_MASUK,
-            'JAM_KELUAR' => $this->JAM_KELUAR,
-            'STATUS' => $this->STATUS
+            'STATUS' => $this->STATUS,
+            'CREATE_AT' => $this->CREATE_AT,
+            'UPDATE_AT' => $this->UPDATE_AT,
         ]);
 
         $query->andFilterWhere(['like', 'ID_PEKERJA', $this->ID_PEKERJA])
-            ->andFilterWhere(['like', 'HARI', $this->HARI])
-            ->andFilterWhere(['like', 'TODOLIST', $this->TODOLIST])
-            ->andFilterWhere(['like', 'KETERANGAN', $this->KETERANGAN])
-            ->andFilterWhere(['like', 'CREATE_AT', $this->CREATE_AT])
+            ->andFilterWhere(['like', 'IMAGE_64', $this->IMAGE_64])
             ->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
-            ->andFilterWhere(['like', 'UPDATE_AT', $this->UPDATE_AT])
             ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY]);
 
-        //return $dataProvider;
-		if($dataProvider->getmodels()){		
-			return $dataProvider;
-		}else{
-			 //return Yii::$app->statusCode->apihandling(204);
-			// return $this->handleFailure($response);
-			return new \yii\web\HttpException(204, 'Not Data Content');
-		}	
+        return $dataProvider;
     }
 }
