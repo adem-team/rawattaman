@@ -48,6 +48,31 @@ $this->registerCss("
 	}
 ");
 
+	$aryStt= [
+	  ['STATUS' => 0, 'STT_NM' => 'PLAN'],		  
+	  ['STATUS' => 1, 'STT_NM' => 'PROGRESS'],
+	  ['STATUS' => 2, 'STT_NM' => 'FINISH'],
+	];	
+	$valStt = ArrayHelper::map($aryStt, 'STATUS', 'STT_NM');
+	//Result Status value.
+	function sttMsg($stt){
+		if($stt==0){ //TRIAL
+			 return Html::a('<span class="fa-stack fa-xl">
+					  <i class="fa fa-circle-thin fa-stack-2x"  style="color:#25ca4f"></i>
+					  <i class="fa fa-check fa-stack-1x" style="color:#ee0b0b"></i>
+					</span>','',['title'=>'PLAN']);
+		}elseif($stt==1){
+			 return Html::a('<span class="fa-stack fa-xl">
+					  <i class="fa fa-circle-thin fa-stack-2x"  style="color:#25ca4f"></i>
+					  <i class="fa fa-check fa-stack-1x" style="color:#05944d"></i>
+					</span>','',['title'=>'PROGRESS']);
+		}elseif($stt==2){
+			return Html::a('<span class="fa-stack fa-xl">
+					  <i class="fa fa-circle-thin fa-stack-2x"  style="color:#25ca4f"></i>
+					  <i class="fa fa-remove fa-stack-1x" style="color:#01190d"></i>
+					</span>','',['title'=>'FINISH']);
+		}
+	};
 	/* $attViewFharga=[	
 		[
 			'columns' => [
@@ -220,15 +245,23 @@ $this->registerCss("
 		,//STATUS
 		[
 			'attribute'=>'STATUS',
-			'filterType'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'filterType'=>GridView::FILTER_SELECT2,
+			'filterWidgetOptions'=>[
+				'pluginOptions' =>Yii::$app->gv->gvPliginSelect2(),
+			],
+			'filterInputOptions'=>['placeholder'=>'Select'],
+			'filter'=>$valStt,//Yii::$app->gv->gvStatusArray(),
+			'format' => 'raw',	
+			'value'=>function($model){
+				return sttMsg($model->STATUS);				 
+			},
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50px',''),			
 		]	
 	
 	];

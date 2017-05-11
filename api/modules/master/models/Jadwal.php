@@ -5,6 +5,7 @@ namespace api\modules\master\models;
 use Yii;
 
 use api\modules\master\models\Pekerja;
+use api\modules\master\models\DataPekerja;
 use api\modules\master\models\PekerjaSearch;
 
 class Jadwal extends \yii\db\ActiveRecord
@@ -98,4 +99,14 @@ class Jadwal extends \yii\db\ActiveRecord
 		$model = Pekerja::find()->Where('FIND_IN_SET( ID_PEKERJA,"'.$this->ID_PEKERJA.'")')->all();
 		return $model;
 	}	
+	//Join TABLE Pekerja
+	public function getIMG_PEKERJA(){
+		$model = DataPekerja::find()->Where('FIND_IN_SET( ID_PEKERJA,"'.$this->ID_PEKERJA.'")')->all();
+		return $model;
+	}	
+	
+	public function extraFields()
+	{
+		return ['IMG_PEKERJA'];
+	}
 }

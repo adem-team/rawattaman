@@ -4,8 +4,6 @@ namespace api\modules\master\models;
 
 use Yii;
 
-use api\modules\master\models\PekerjaImg;
-
 class Pekerja extends \yii\db\ActiveRecord
 {
     /**
@@ -65,15 +63,7 @@ class Pekerja extends \yii\db\ActiveRecord
 			},	
 			'HP'=>function($model){
 				return $model->HP;
-			},				
-			'PHOTO'=>function(){
-				//return $this->pekerjaImgTbl->IMAGE_64;
-				return 'none';
 			}
 		];
 	}
-	
-	// public function getPekerjaImgTbl(){
-		// return $this->hasOne(PekerjaImg::className(),['ID_PEKERJA'=>'ID_PEKERJA']);
-	// }
 }
