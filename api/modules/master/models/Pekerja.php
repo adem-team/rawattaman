@@ -66,9 +66,10 @@ class Pekerja extends \yii\db\ActiveRecord
 			'HP'=>function($model){
 				return $model->HP;
 			},				
-			// 'PHOTO'=>function(){
-				// return $this->pekerjaImgTbl->IMAGE_64;
-			// }
+			'PHOTO'=>function(){
+				//return $this->pekerjaImgTbl->IMAGE_64;
+				return 'none';
+			}
 		];
 	}
 	
