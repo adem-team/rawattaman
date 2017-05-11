@@ -35,12 +35,18 @@ class PekerjaController extends Controller
      */
     public function actionIndex()
     {
+		$paramCari=Yii::$app->getRequest()->getQueryParam('id');
+		
         $searchModel = new PekerjaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+		$searchModelView = new PekerjaSearch(['ID_PEKERJA'=>$paramCari]);
+        $dataProviderView = $searchModelView->search(Yii::$app->request->queryParams);
+		$modelViewKayawan =  $dataProviderView->getModels()[0];
+		
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'modelViewKayawan'=>$modelViewKayawan
         ]);
     }
 

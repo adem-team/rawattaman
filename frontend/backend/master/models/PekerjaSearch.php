@@ -61,10 +61,10 @@ class PekerjaSearch extends Pekerja
             'TGL_LAHIR' => $this->TGL_LAHIR,
             'CREATE_AT' => $this->CREATE_AT,
             'UPDATE_AT' => $this->UPDATE_AT,
+			'ID_PEKERJA'=> $this->ID_PEKERJA,
         ]);
 
-        $query->andFilterWhere(['like', 'ID_PEKERJA', $this->ID_PEKERJA])
-            ->andFilterWhere(['like', 'NAMA', $this->NAMA])
+        $query->andFilterWhere(['like', 'NAMA', $this->NAMA])
             ->andFilterWhere(['like', 'KTP', $this->KTP])
             ->andFilterWhere(['like', 'GENDER', $this->GENDER])
             ->andFilterWhere(['like', 'ALAMAT', $this->ALAMAT])

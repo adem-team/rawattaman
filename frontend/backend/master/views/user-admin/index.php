@@ -36,76 +36,76 @@ $this->registerCss("
 	a:active {
 		color: blue;
 	}
-	#gv-karyawan .kv-grid-wrapper {
+	#gv-User .kv-grid-wrapper {
 		position: relative;
 		overflow: auto;
 		height: 500px;
 	}
 	
-	/* #gv-karyawan .panel {
+	/* #gv-User .panel {
 		height: 500px;
 	} */
 	
 	/*Change Panel Color*/
-	#gv-karyawan .panel-default > .panel-heading {
+	#gv-User .panel-default > .panel-heading {
 	  color: #333;
 	  background-color: rgba(83, 224, 234, 1);
 	  border-color: #ddd;
 	}
 ");
-	$pageTitleKaryawan='<span class="fa-stack fa-xs text-right" style="color:red">				  
+	$pageTitleUser='<span class="fa-stack fa-xs text-right" style="color:red">				  
 				  <i class="fa fa-share fa-1x"></i>
 				</span> <b>Data Pekerja </b>
 	';
 
-	$bColorKaryawan='rgba(87,114,111, 1)';
-	$gvAttKaryawan=[
+	$bColorUser='rgba(87,114,111, 1)';
+	$gvAttUser=[
 		[
 			'class'=>'kartik\grid\SerialColumn',
 			'contentOptions'=>['class'=>'kartik-sheet-style'],
 			'width'=>'10px',
 			'header'=>'No.',
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','30px',$bColorKaryawan,'#ffffff'),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','30px',$bColorUser,'#ffffff'),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('center','30px',''),
 		],
-		//ID_PEKERJA
+		//username
 		[
-			'attribute'=>'ID_PEKERJA',
+			'attribute'=>'username',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorKaryawan),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorUser),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
 			
 		],	
-		//NAMA
+		//email
 		[
-			'attribute'=>'NAMA',
+			'attribute'=>'email',
 			'filterType'=>true,
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorKaryawan),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorUser),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
 			
 		]	
 	];
 
-	$gvKaryawan=GridView::widget([
-		'id'=>'gv-karyawan',
+	$gvUser=GridView::widget([
+		'id'=>'gv-User',
 		'dataProvider' => $dataProvider,
 		'filterModel' => $searchModel,
-		'columns'=>$gvAttKaryawan,	
+		'columns'=>$gvAttUser,	
 		'rowOptions'   => function ($model, $key, $index, $grid) {
-			return ['id' => $model->ID_PEKERJA,'onclick' => '
+			return ['id' => $model->ACCESS_UNIX,'onclick' => '
 					$.pjax.reload({
-						url: "'.Url::to(['/master/pekerja']).'?id="+this.id,
-						container:"#dv-karyawan"
+						url: "'.Url::to(['/master/user-admin']).'?id="+this.id,
+						container:"#dv-user-info,#dv-user-link,#dv-user-token"
 					});
 									
 			'];
@@ -114,7 +114,7 @@ $this->registerCss("
 		'pjaxSettings'=>[
 			'options'=>[
 				'enablePushState'=>false,
-				'id'=>'gv-karyawan',
+				'id'=>'gv-User',
 		    ],						  
 		],
 		'hover'=>true, //cursor select
@@ -126,7 +126,7 @@ $this->registerCss("
 		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			'heading'=>$pageTitleKaryawan,
+			'heading'=>$pageTitleUser,
 			//'type'=>'info',
 			'before'=>false,
 			'footer'=>false,			
@@ -136,66 +136,137 @@ $this->registerCss("
 		'floatHeader'=>true,
 	]); 
 	
-	$dvAttKaryawan=[
+	$dvAttUserInfo=[
 		//Identitas
-		[	
-			'group'=>true,
-			'label'=>'Identitas',
-			'rowOptions'=>['class'=>'success'],
-			'groupOptions'=>['class'=>'text-left'] 			
-		],
+		// [	
+			// 'group'=>true,
+			// 'label'=>'Identitas',
+			// 'rowOptions'=>['class'=>'success'],
+			// 'groupOptions'=>['class'=>'text-left'] 			
+		// ],
 		[ 	
-			'attribute' =>'ID_PEKERJA',
+			'attribute' =>'ACCESS_UNIX',
 			'type'=>DetailView::INPUT_TEXT,			
 			'displayOnly'=>true,
 			'labelColOptions'=>['style'=>'width:5px;font-family: tahoma ;font-size: 8pt;'], 
 		],	
 		[
-			'attribute'=>'NAMA', 
+			'attribute'=>'username', 
 			'displayOnly'=>false,
 			'labelColOptions'=>['style'=>'width:160px;font-family: tahoma ;font-size: 8pt;'], 
 		],
 		[
-			'attribute'=>'KTP', 
+			'attribute'=>'email', 
+			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
+			'displayOnly'=>false
+		],			
+		[
+			'attribute'=>'UUID', 
+			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
+			'displayOnly'=>false
+		],
+		[
+			'attribute'=>'status', 
+			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
+			'displayOnly'=>false
+		],
+	];
+	
+	$dvAttUserLink=[
+		//Identitas
+		// [	
+			// 'group'=>true,
+			// 'label'=>'User Link',
+			// 'rowOptions'=>['class'=>'success'],
+			// 'groupOptions'=>['class'=>'text-left'] 			
+		// ],
+		[
+			'attribute'=>'ID_FB', 
 			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
 			'displayOnly'=>false
 		],	
 		[
-			'attribute'=>'TGL_LAHIR', 
+			'attribute'=>'ID_GOOGLE', 
 			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
 			'displayOnly'=>false
 		],
 		[
-			'attribute'=>'GENDER', 
-			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
-			'displayOnly'=>false
-		],
-		[
-			'attribute'=>'ALAMAT', 
-			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
-			'displayOnly'=>false
-		],	
-		[
-			'attribute'=>'HP', 
-			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
-			'displayOnly'=>false
-		],
-		[
-			'attribute'=>'EMAIL', 
+			'attribute'=>'ID_TWITTER', 
 			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
 			'displayOnly'=>false
 		],	
 	];
 	
-	$dvKaryawan=DetailView::widget([
-		'id'=>'dv-karyawan',
-		'model' => $modelViewKayawan,
-		'attributes'=>$dvAttKaryawan,
+	$dvAttUserToken=[
+		//Identitas
+		// [	
+			// 'group'=>true,
+			// 'label'=>'User Token',
+			// 'rowOptions'=>['class'=>'success'],
+			// 'groupOptions'=>['class'=>'text-left'] 			
+		// ],
+		[
+			'attribute'=>'ID_FB', 
+			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
+			'displayOnly'=>false
+		],	
+		[
+			'attribute'=>'ID_GOOGLE', 
+			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
+			'displayOnly'=>false
+		],
+		[
+			'attribute'=>'ID_TWITTER', 
+			'labelColOptions'=>['style'=>'width:160px; font-family: tahoma ;font-size: 8pt;'], 
+			'displayOnly'=>false
+		],	
+	];
+	
+	$dvUserInfo=DetailView::widget([
+		'id'=>'dv-user-info',
+		'model' => $modelUsesr,
+		'attributes'=>$dvAttUserInfo,
 		'condensed'=>true,
 		'hover'=>true,
 		'panel'=>[
-					'heading'=>'<div style="float:left;margin-right:10px" class="fa fa-1x fa-list-alt"></div><div><h6 class="modal-title"><b> Karyawan Detail</b></h6></div>',
+					'heading'=>'<div style="float:left;margin-right:10px" class="fa fa-1x fa-list-alt"></div><div><h6 class="modal-title"><b> USER DETAIL</b></h6></div>',
 					'type'=>DetailView::TYPE_INFO,
+				],
+		'saveOptions'=>[ 
+			'id' =>'saveBtn',
+			//'value'=>'/master/customers/viewcust?id='.$model->CUST_KD,
+			'params' => ['custom_param' => true],
+		],	
+		
+	]);	
+	
+	$dvUserLink=DetailView::widget([
+		'id'=>'dv-user-link',
+		'model' => $modelUsesr,
+		'attributes'=>$dvAttUserLink,
+		'condensed'=>true,
+		'hover'=>true,
+		'panel'=>[
+					'heading'=>'<div style="float:left;margin-right:10px" class="fa fa-1x fa-list-alt"></div><div><h6 class="modal-title"><b> LOGIN LINK </b></h6></div>',
+					'type'=>DetailView::TYPE_SUCCESS,
+				],
+		'saveOptions'=>[ 
+			'id' =>'saveBtn',
+			//'value'=>'/master/customers/viewcust?id='.$model->CUST_KD,
+			'params' => ['custom_param' => true],
+		],	
+		
+	]);	
+	
+	$dvUserToken=DetailView::widget([
+		'id'=>'dv-user-token',
+		'model' => $modelUsesr,
+		'attributes'=>$dvAttUserToken,
+		'condensed'=>true,
+		'hover'=>true,
+		'panel'=>[
+					'heading'=>'<div style="float:left;margin-right:10px" class="fa fa-1x fa-list-alt"></div><div><h6 class="modal-title"><b> USER TOKEN</b></h6></div>',
+					'type'=>DetailView::TYPE_DANGER,
 				],
 		'saveOptions'=>[ 
 			'id' =>'saveBtn',
@@ -210,12 +281,14 @@ $this->registerCss("
 		<div class="row">
 			<div class="col-xs-6 col-sm-4 col-lg-4" style="font-family: tahoma ;font-size: 9pt;">
 				<div class="row">
-					<?=$gvKaryawan?>
+					<?=$gvUser?>
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-8 col-lg-8" style="padding-left:20px;font-family: tahoma ;font-size: 9pt;">
 				<div class="row">
-					<?=$dvKaryawan?>
+					<?=$dvUserInfo?>
+					<?=$dvUserLink?>
+					<?=$dvUserToken?>
 				</div>
 			</div>
 		</div>
