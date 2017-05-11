@@ -5,12 +5,12 @@ namespace api\modules\master\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use api\modules\master\models\ItemJual;
+use api\modules\master\models\Jadwal;
 
 /**
- * ItemJualSearch represents the model behind the search form of `app\backend\master\models\ItemJual`.
+ * JadwalSearch represents the model behind the search form of `frontend\backend\master\models\Jadwal`.
  */
-class ItemJualSearch extends ItemJual
+class JadwalSearch extends Jadwal
 {
     /**
      * @inheritdoc
@@ -19,8 +19,7 @@ class ItemJualSearch extends ItemJual
     {
         return [
             [['ID', 'STATUS'], 'integer'],
-            [['ACCESS_UNIX','CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT', 'ITEM_ID', 'OUTLET_CODE', 'PERIODE_TGL1', 'PERIODE_TGL2', 'START_TIME', 'DCRIPT'], 'safe'],
-            [['HARGA_JUAL'], 'number'],
+            [['ACCESS_UNIX', 'ID_PEKERJA', 'HARI', 'TGL', 'JAM_MASUK', 'JAM_KELUAR', 'TODOLIST', 'KETERANGAN', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
         ];
     }
 
@@ -42,7 +41,7 @@ class ItemJualSearch extends ItemJual
      */
     public function search($params)
     {
-        $query = ItemJual::find();
+        $query = Jadwal::find();
 
         // add conditions that should always apply here
 
@@ -61,21 +60,21 @@ class ItemJualSearch extends ItemJual
         // grid filtering conditions
         $query->andFilterWhere([
             'ID' => $this->ID,
-			'ACCESS_UNIX' => $this->ACCESS_UNIX,
-            'CREATE_AT' => $this->CREATE_AT,
-            'UPDATE_AT' => $this->UPDATE_AT,
-            'STATUS' => $this->STATUS,
-            'PERIODE_TGL1' => $this->PERIODE_TGL1,
-            'PERIODE_TGL2' => $this->PERIODE_TGL2,
-            'START_TIME' => $this->START_TIME,
-            'HARGA_JUAL' => $this->HARGA_JUAL           
+			'ACCESS_UNIX'=>$this->ACCESS_UNIX,
+            'TGL' => $this->TGL,
+            'JAM_MASUK' => $this->JAM_MASUK,
+            'JAM_KELUAR' => $this->JAM_KELUAR,
+            'STATUS' => $this->STATUS
         ]);
 
-        $query->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
-            ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY])
-            ->andFilterWhere(['like', 'ITEM_ID', $this->ITEM_ID])
-            ->andFilterWhere(['like', 'OUTLET_CODE', $this->OUTLET_CODE])
-            ->andFilterWhere(['like', 'DCRIPT', $this->DCRIPT]);
+        $query->andFilterWhere(['like', 'ID_PEKERJA', $this->ID_PEKERJA])
+            ->andFilterWhere(['like', 'HARI', $this->HARI])
+            ->andFilterWhere(['like', 'TODOLIST', $this->TODOLIST])
+            ->andFilterWhere(['like', 'KETERANGAN', $this->KETERANGAN])
+            ->andFilterWhere(['like', 'CREATE_AT', $this->CREATE_AT])
+            ->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
+            ->andFilterWhere(['like', 'UPDATE_AT', $this->UPDATE_AT])
+            ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY]);
 
         return $dataProvider;
     }

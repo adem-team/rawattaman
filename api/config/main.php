@@ -89,10 +89,7 @@ return [
 				[
                         'class' => 'yii\rest\UrlRule',
                         'controller' =>[
-							'master/store',
-							'master/storetest',
-							'master/item-image',
-							'master/customer',							
+							'master/jadwal-junjungan',												
 						],
 						'patterns' => [
 							'PUT,PATCH {id}' => 'update',

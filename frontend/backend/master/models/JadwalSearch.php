@@ -60,20 +60,20 @@ class JadwalSearch extends Jadwal
         // grid filtering conditions
         $query->andFilterWhere([
             'ID' => $this->ID,
+			'ACCESS_UNIX'=>$this->ACCESS_UNIX,
             'TGL' => $this->TGL,
             'JAM_MASUK' => $this->JAM_MASUK,
             'JAM_KELUAR' => $this->JAM_KELUAR,
-            'STATUS' => $this->STATUS,
-            'CREATE_AT' => $this->CREATE_AT,
-            'UPDATE_AT' => $this->UPDATE_AT,
+            'STATUS' => $this->STATUS
         ]);
 
-        $query->andFilterWhere(['like', 'ACCESS_UNIX', $this->ACCESS_UNIX])
-            ->andFilterWhere(['like', 'ID_PEKERJA', $this->ID_PEKERJA])
+        $query->andFilterWhere(['like', 'ID_PEKERJA', $this->ID_PEKERJA])
             ->andFilterWhere(['like', 'HARI', $this->HARI])
             ->andFilterWhere(['like', 'TODOLIST', $this->TODOLIST])
             ->andFilterWhere(['like', 'KETERANGAN', $this->KETERANGAN])
+            ->andFilterWhere(['like', 'CREATE_AT', $this->CREATE_AT])
             ->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
+            ->andFilterWhere(['like', 'UPDATE_AT', $this->UPDATE_AT])
             ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY]);
 
         return $dataProvider;

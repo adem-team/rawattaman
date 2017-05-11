@@ -1,13 +1,16 @@
 <?php
 
-namespace api\modules\master\models;
+namespace frontend\backend\master\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use api\modules\master\models\PayMetode;
+use frontend\backend\master\models\RatingImg;
 
-class PayMetodeSearch extends PayMetode
+/**
+ * RatingImgSearch represents the model behind the search form of `frontend\backend\master\models\RatingImg`.
+ */
+class RatingImgSearch extends RatingImg
 {
     /**
      * @inheritdoc
@@ -15,8 +18,8 @@ class PayMetodeSearch extends PayMetode
     public function rules()
     {
         return [
-            [['ID', 'STATUS', 'TYPE_PAY'], 'integer'],
-            [['CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT', 'ACCESS_UNIX', 'OUTLET_CODE', 'BANK_NM', 'DCRIPT'], 'safe'],
+            [['RETING_ID', 'STATUS'], 'integer'],
+            [['ACCESS_UNIX', 'IMAGE_64', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
         ];
     }
 
@@ -38,7 +41,7 @@ class PayMetodeSearch extends PayMetode
      */
     public function search($params)
     {
-        $query = PenjualanMetode::find();
+        $query = RatingImg::find();
 
         // add conditions that should always apply here
 
@@ -56,19 +59,16 @@ class PayMetodeSearch extends PayMetode
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ID' => $this->ID,
+            'RETING_ID' => $this->RETING_ID,
+            'STATUS' => $this->STATUS,
             'CREATE_AT' => $this->CREATE_AT,
             'UPDATE_AT' => $this->UPDATE_AT,
-            'STATUS' => $this->STATUS,
-            'TYPE_PAY' => $this->TYPE_PAY,
         ]);
 
-        $query->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
-            ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY])
-            ->andFilterWhere(['like', 'ACCESS_UNIX', $this->ACCESS_UNIX])
-            ->andFilterWhere(['like', 'OUTLET_CODE', $this->OUTLET_CODE])
-            ->andFilterWhere(['like', 'BANK_NM', $this->BANK_NM])
-            ->andFilterWhere(['like', 'DCRIPT', $this->DCRIPT]);
+        $query->andFilterWhere(['like', 'ACCESS_UNIX', $this->ACCESS_UNIX])
+            ->andFilterWhere(['like', 'IMAGE_64', $this->IMAGE_64])
+            ->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
+            ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY]);
 
         return $dataProvider;
     }

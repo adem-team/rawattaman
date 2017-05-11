@@ -84,7 +84,36 @@ use kartik\detail\DetailView;
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','30px',$bColorJadwal,'#ffffff'),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('center','30px',''),
 		],
-		//ID_PEKERJA
+		//ACCESS_UNIX
+		[
+			'attribute'=>'ACCESS_UNIX',
+			//'label'=>'Cutomer',
+			'filterType'=>true,
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'hAlign'=>'right',
+			'vAlign'=>'middle',
+			'mergeHeader'=>false,
+			'noWrap'=>false,
+			//gvContainHeader($align,$width,$bColorJadwal)
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
+			
+		],
+		//TGL
+		[
+			'attribute'=>'TGL',
+			'filterType'=>true,
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'hAlign'=>'right',
+			'vAlign'=>'middle',
+			'mergeHeader'=>false,
+			'noWrap'=>false,
+			//gvContainHeader($align,$width,$bColorJadwal)
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
+			
+		],			
+		//HARI
 		[
 			'attribute'=>'HARI',
 			//'label'=>'Cutomer',
@@ -98,21 +127,7 @@ use kartik\detail\DetailView;
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
 			
-		]	
-		,//HARI
-		[
-			'attribute'=>'TGL',
-			'filterType'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
-			'hAlign'=>'right',
-			'vAlign'=>'middle',
-			'mergeHeader'=>false,
-			'noWrap'=>false,
-			//gvContainHeader($align,$width,$bColorJadwal)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
-			
-		]	
+		]		
 		,//JAM_MASUK
 		[
 			'attribute'=>'JAM_MASUK',

@@ -5,12 +5,12 @@ namespace api\modules\master\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use api\modules\master\models\Item;
+use api\modules\master\models\Pekerja;
 
 /**
- * ItemSearch represents the model behind the search form of `app\backend\master\models\Item`.
+ * PekerjaSearch represents the model behind the search form of `frontend\backend\master\models\Pekerja`.
  */
-class ItemSearch extends Item
+class PekerjaSearch extends Pekerja
 {
     /**
      * @inheritdoc
@@ -18,8 +18,7 @@ class ItemSearch extends Item
     public function rules()
     {
         return [
-            [['ID', 'STATUS'], 'integer'],
-            [['ACCESS_UNIX','DEFAULT_HARGA','DEFAULT_STOCK','CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT', 'ITEM_ID', 'OUTLET_CODE', 'ITEM_NM','SATUAN','ITEMGRP','ITEM_QR'], 'safe'],
+            [['ID_PEKERJA', 'NAMA', 'KTP', 'GENDER', 'TGL_LAHIR', 'ALAMAT', 'HP', 'EMAIL', 'CREATE_BY', 'CREATE_AT', 'UPDATE_BY', 'UPDATE_AT'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class ItemSearch extends Item
      */
     public function search($params)
     {
-        $query = Item::find();
+        $query = Pekerja::find();
 
         // add conditions that should always apply here
 
@@ -59,20 +58,20 @@ class ItemSearch extends Item
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ID' => $this->ID,
-			'ACCESS_UNIX' => $this->ACCESS_UNIX,
-            'CREATE_AT' => $this->CREATE_AT,
-            'UPDATE_AT' => $this->UPDATE_AT,
-            'STATUS' => $this->STATUS,
-            'OUTLET_CODE' => $this->OUTLET_CODE,
-            'ITEM_QR' => $this->ITEM_QR,
-            'ITEM_ID' => $this->ITEM_ID,
+			'ID_PEKERJA'=> $this->ID_PEKERJA			
         ]);
 
-        $query->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
-            ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY])
-			->andFilterWhere(['like', 'ITEMGRP', $this->ITEMGRP])
-            ->andFilterWhere(['like', 'ITEM_NM', $this->ITEM_NM]);
+        $query->andFilterWhere(['like', 'NAMA', $this->NAMA])
+            ->andFilterWhere(['like', 'KTP', $this->KTP])
+            ->andFilterWhere(['like', 'GENDER', $this->GENDER])
+            ->andFilterWhere(['like', 'ALAMAT', $this->ALAMAT])
+            ->andFilterWhere(['like', 'TGL_LAHIR', $this->TGL_LAHIR])
+            ->andFilterWhere(['like', 'HP', $this->HP])
+            ->andFilterWhere(['like', 'EMAIL', $this->EMAIL])
+            ->andFilterWhere(['like', 'CREATE_AT', $this->CREATE_AT])
+            ->andFilterWhere(['like', 'CREATE_BY', $this->CREATE_BY])
+            ->andFilterWhere(['like', 'UPDATE_AT', $this->UPDATE_AT])
+            ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY]);
 
         return $dataProvider;
     }
