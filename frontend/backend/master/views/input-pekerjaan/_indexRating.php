@@ -237,7 +237,7 @@ $this->registerCss("
 		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			//'heading'=>$dvViewFharga.'<style="',
+			'heading'=>tombolCreateRating(),
 			'type'=>'info',
 			'before'=>false,
 			'footer'=>false,			

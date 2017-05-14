@@ -48,9 +48,9 @@ $this->registerCss("
 	}
 ");
 
-$this->registerJs($this->render('modal_item.js'),View::POS_READY);
+$this->registerJs($this->render('modal_pekerjaan.js'),View::POS_READY);
 //$this->registerJs($this->render('tabx.js'),View::POS_READY);
-echo $this->render('modal_item'); //echo difinition
+echo $this->render('modal_pekerjaan'); //echo difinition
 
 	$aryStt= [
 		  ['STATUS' => 0, 'STT_NM' => 'DISABLE'],		  
@@ -156,7 +156,7 @@ echo $this->render('modal_item'); //echo difinition
 		'panel' => [
 			'heading'=>'',
 			//'heading'=>tombolBack().'<div style="float:right"> '.tombolCreate().' '.tombolExportExcel().'</div>',  
-			'heading'=>tombolCreate().' '.$pageNm,  
+			'heading'=>tombolCreateClient().' '.$pageNm,  
 			'type'=>'info',
 			//'before'=> tombolBack().'<div style="float:right"> '.tombolCreate().' '.tombolExportExcel().'</div>',
 			//'before'=> tombolBack(),

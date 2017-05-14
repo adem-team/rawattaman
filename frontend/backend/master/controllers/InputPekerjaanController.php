@@ -101,6 +101,45 @@ class InputPekerjaanController extends Controller
 		]);
     }
 
+	public function actionCreateClient()
+	{
+		$model = new Item();
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->ID]);
+			} else {
+			return $this->renderAjax('_formHarga', [
+				'model' => $model,
+			]);
+		}
+	}
+	
+	public function actionCreateJadwal()
+	{
+		$model = new Item();
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->ID]);
+			} else {
+			return $this->renderAjax('_formHarga', [
+				'model' => $model,
+			]);
+		}
+	}
+	
+	public function actionCreateRating()
+	{
+		$model = new Item();
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->ID]);
+			} else {
+			return $this->renderAjax('_formHarga', [
+				'model' => $model,
+			]);
+		}
+	}
+	
     /**
      * Displays a single Item model.
      * @param string $id
@@ -118,18 +157,7 @@ class InputPekerjaanController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    // public function actionCreateHarga()
-    // {
-        // $model = new Item();
-
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            // return $this->redirect(['view', 'id' => $model->ID]);
-        // } else {
-            // return $this->renderAjax('_formHarga', [
-                // 'model' => $model,
-            // ]);
-        // }
-    // }
+   
 	
 	// public function actionCreateDiscount()
     // {

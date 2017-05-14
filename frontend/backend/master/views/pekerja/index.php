@@ -53,6 +53,11 @@ $this->registerCss("
 	  border-color: #ddd;
 	}
 ");
+
+
+$this->registerJs($this->render('modal_pekerja.js'),View::POS_READY);
+echo $this->render('modal_pekerja'); //echo difinition
+
 	$pageTitleKaryawan='<span class="fa-stack fa-xs text-right" style="color:red">				  
 				  <i class="fa fa-share fa-1x"></i>
 				</span> <b>Data Pekerja </b>
@@ -126,7 +131,7 @@ $this->registerCss("
 		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			'heading'=>$pageTitleKaryawan,
+			'heading'=>$pageTitleKaryawan. ' ' . tombolCreatePekerja(),
 			//'type'=>'info',
 			'before'=>false,
 			'footer'=>false,			

@@ -287,7 +287,7 @@ $this->registerCss("
 		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			//'heading'=>$dvViewFharga.'<style="',
+			'heading'=>tombolCreateJadwal(),
 			'type'=>'info',
 			'before'=>false,
 			'footer'=>false,

@@ -47,6 +47,10 @@ $this->registerCss("
 	  border-color: #ddd;
 	}
 ");
+$this->registerJs($this->render('modal_produk.js'),View::POS_READY);
+//$this->registerJs($this->render('tabx.js'),View::POS_READY);
+echo $this->render('modal_produk'); //echo difinition
+
 	$pageTitleProdak='<span class="fa-stack fa-xs text-right" style="color:red">				  
 				  <i class="fa fa-share fa-1x"></i>
 				</span> <b>List Prodak </b>
@@ -163,7 +167,7 @@ $this->registerCss("
 		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			'heading'=>$pageTitleProdak,
+			'heading'=>$pageTitleProdak .' '.tombolCreateProduk(),
 			//'type'=>'info',
 			'before'=>false,
 			'footer'=>false,			
