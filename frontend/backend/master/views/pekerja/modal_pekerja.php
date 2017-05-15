@@ -65,7 +65,7 @@ use yii\helpers\Url;
 	/*
 	 * MODAL - JADWAL CREATE.
 	*/
-	$HeaderColor_Todolist='rgba(80, 150, 241, 1)';//' rgba(74, 206, 231, 1)';
+	$HeaderColor_Todolist='rgba(83, 224, 234, 1)';//' rgba(74, 206, 231, 1)';
 	$bgIconColor_Todolist='#f08f2e';
 	Modal::begin([
 		'id' => 'modal-pekerja-create',
