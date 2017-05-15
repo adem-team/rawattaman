@@ -19,6 +19,7 @@ use yii\web\Request;
 use yii\db\ActiveRecord;
 use yii\data\ArrayDataProvider;
 use kartik\detail\DetailView;
+use kartik\widgets\ActiveField;
 
 $this->title = 'Prodaks';
 $this->params['breadcrumbs'][] = $this->title;
@@ -199,14 +200,11 @@ echo $this->render('modal_pekerja'); //echo difinition
 		'condensed'=>true,
 		'hover'=>true,
 		'panel'=>[
-					'heading'=>'<div style="float:left;margin-right:10px" class="fa fa-1x fa-list-alt"></div><div><h6 class="modal-title"><b> Karyawan Detail</b></h6></div>',
-					'type'=>DetailView::TYPE_INFO,
-				],
-		'saveOptions'=>[ 
-			'id' =>'saveBtn',
-			//'value'=>'/master/customers/viewcust?id='.$model->CUST_KD,
-			'params' => ['custom_param' => true],
-		],	
+			'heading'=>'<div style="float:left;margin-right:10px" class="fa fa-1x fa-list-alt"></div><div><h6 class="modal-title"><b> Karyawan Detail</b></h6></div>',
+			'type'=>DetailView::TYPE_INFO,
+		],
+		'buttons1'=>'{update}',
+		'buttons2'=>'{view}{save}'
 		
 	]);	
 ?>
@@ -220,7 +218,16 @@ echo $this->render('modal_pekerja'); //echo difinition
 			</div>
 			<div class="col-xs-6 col-sm-8 col-lg-8" style="padding-left:20px;font-family: tahoma ;font-size: 9pt;">
 				<div class="row">
-					<?=$dvKaryawan?>
+					<?php
+						$form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL,
+							'id'=>'edit-emp-id',
+							'enableClientValidation' => true,
+							'options'=>['enctype'=>'multipart/form-data'],
+							'action'=>'/master/pekerja/update?id='.$modelViewKayawan->ID_PEKERJA,
+						]);
+							echo $dvKaryawan;
+						ActiveForm::end();
+					?>
 				</div>
 			</div>
 		</div>

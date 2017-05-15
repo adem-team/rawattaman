@@ -51,6 +51,13 @@ $this->registerJs($this->render('modal_produk.js'),View::POS_READY);
 //$this->registerJs($this->render('tabx.js'),View::POS_READY);
 echo $this->render('modal_produk'); //echo difinition
 
+	$aryStt= [
+		  ['STATUS' => 0, 'STT_NM' => 'DISABLE'],		  
+		  ['STATUS' => 1, 'STT_NM' => 'ENABLE']
+	];	
+	$valStt = ArrayHelper::map($aryStt, 'STATUS', 'STT_NM');
+	$bColor='rgba(87,114,111, 1)';
+	
 	$pageTitleProdak='<span class="fa-stack fa-xs text-right" style="color:red">				  
 				  <i class="fa fa-share fa-1x"></i>
 				</span> <b>List Prodak </b>
@@ -70,26 +77,26 @@ echo $this->render('modal_produk'); //echo difinition
 		[
 			'attribute'=>'PRODAK_NAME',
 			'filterType'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','100px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorProdak),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','100px',$bColorProdak),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','100px',''),
 			
 		],	
 		//KETERANGAN
 		[
 			'attribute'=>'KETERANGAN',
 			'filterType'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','250px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorProdak),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','250px',$bColorProdak),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','250px',''),
 			
 		]	
 		,//HARGA
@@ -130,20 +137,62 @@ echo $this->render('modal_produk'); //echo difinition
 			//gvContainHeader($align,$width,$bColorProdak)
 			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorProdak),
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
-		],
-		//STATUS
+		]
+		,//STATUS
 		[
 			'attribute'=>'STATUS',
-			'filterType'=>true,
+			'filterType'=>GridView::FILTER_SELECT2,
+			'filterWidgetOptions'=>[
+				'pluginOptions' =>Yii::$app->gv->gvPliginSelect2(),
+			],
+			'filterInputOptions'=>['placeholder'=>'Select'],
+			'filter'=>$valStt,//Yii::$app->gv->gvStatusArray(),
 			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
 			'hAlign'=>'right',
-			'vAlign'=>'middle',
+			'vAlign'=>'top',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
-			//gvContainHeader($align,$width,$bColorProdak)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorProdak),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),			
-		]	
+			'format' => 'raw',	
+			'value'=>function($model){
+				 if ($model->STATUS == 0) {
+				   return Html::decode('<span class="fa-stack fa-xl">
+							  <i class="fa fa-circle-thin fa-stack-2x"  style="color:#25ca4f"></i>
+							  <i class="fa fa-remove fa-stack-1x" style="color:#ee0b0b"></i>
+							</span> Disable','',['title'=>'Disable']);
+				} else if ($model->STATUS == 1) {
+					return Html::decode('<span class="fa-stack fa-xl">
+							  <i class="fa fa-circle-thin fa-stack-2x"  style="color:#25ca4f"></i>
+							  <i class="fa fa-check fa-stack-1x" style="color:#01190d"></i>
+							</span> Enable','',['title'=>'Enable']);
+				}
+			},
+			//gvContainHeader($align,$width,$bColor)
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50',$bColor),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50','')			
+		],
+		//ACTION
+		[
+			'class' => 'kartik\grid\ActionColumn',
+			'template' => '{view}',
+			'header'=>'ACTION',
+			'dropdown' => false,
+			// 'dropdownOptions'=>[
+				// 'class'=>'pull-right dropdown',
+				// 'style'=>'width:60px;background-color:#E6E6FA'				
+			// ],
+			// 'dropdownButton'=>[
+				// 'label'=>'ACTION',
+				// 'class'=>'btn btn-default btn-xs',
+				// 'style'=>'width:100%;'		
+			// ],
+			'buttons' => [
+				'view' =>function ($url, $model){
+					return  tombolView($url, $model);
+				},
+			],
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','10px',$bColor,'#ffffff'),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','10px',''),
+		]
 	];
 
 	$gvProduct=GridView::widget([

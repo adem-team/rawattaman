@@ -36,7 +36,7 @@ class Pekerja extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID_PEKERJA'], 'required'],
+           // [['ID_PEKERJA'], 'required'],
             [['TGL_LAHIR', 'CREATE_AT', 'UPDATE_AT'], 'safe'],
             [['ALAMAT'], 'string'],
             [['ID_PEKERJA', 'KTP', 'HP', 'EMAIL', 'CREATE_BY', 'UPDATE_BY'], 'string', 'max' => 50],
@@ -51,13 +51,13 @@ class Pekerja extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ID_PEKERJA' => Yii::t('app', 'Id  Pekerja'),
+            'ID_PEKERJA' => Yii::t('app', 'Id.Pekerja'),
             'NAMA' => Yii::t('app', 'Nama'),
-            'KTP' => Yii::t('app', 'Ktp'),
+            'KTP' => Yii::t('app', 'KTP'),
             'GENDER' => Yii::t('app', 'Gender'),
-            'TGL_LAHIR' => Yii::t('app', 'Tgl  Lahir'),
+            'TGL_LAHIR' => Yii::t('app', 'Tanggal.Lahir'),
             'ALAMAT' => Yii::t('app', 'Alamat'),
-            'HP' => Yii::t('app', 'Hp'),
+            'HP' => Yii::t('app', 'HP'),
             'EMAIL' => Yii::t('app', 'Email'),
             'CREATE_BY' => Yii::t('app', 'Create  By'),
             'CREATE_AT' => Yii::t('app', 'Create  At'),

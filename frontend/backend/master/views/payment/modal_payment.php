@@ -32,13 +32,13 @@ use yii\helpers\Url;
 	/*
 	 * Button - todolist CREATE.
 	*/
-	function tombolCreatePekerja(){
+	function tombolCreatePayment(){
 		// if(getPermission()){
 			// if(getPermission()->BTN_CREATE==1){
 				//$title1 = Yii::t('app', ' New');
-				$url = Url::toRoute(['/master/pekerja/create']);
+				$url = Url::toRoute(['/master/payment/create']);
 				$options1 = ['value'=>$url,
-							'id'=>'button-pekerja-create',
+							'id'=>'button-payment-create',
 							'class'=>"btn btn-default btn-xs"  
 				];
 				$icon1 = '
@@ -68,14 +68,14 @@ use yii\helpers\Url;
 	$HeaderColor_Todolist='rgba(80, 150, 241, 1)';//' rgba(74, 206, 231, 1)';
 	$bgIconColor_Todolist='#f08f2e';
 	Modal::begin([
-		'id' => 'modal-pekerja-create',
+		'id' => 'modal-payment-create',
 		'header' => '
 			<span class="fa-stack fa-xs">																	
 				<i class="fa fa-circle fa-stack-2x " style="color:'.$bgIconColor_Todolist.'"></i>
 				<i class="fa fa-plus fa-stack-1x" style="color:#fbfbfb"></i>
-			</span><b> Tambahkan  Pekerja </b>
+			</span><b> Tambahkan  Payment </b>
 		',		
-		'size' =>'modal-sm',
+		'size' =>'modal-dm',
 		'headerOptions'=>[
 			'style'=> 'border-radius:5px; background-color:'.$HeaderColor_Todolist,
 		],
@@ -84,6 +84,6 @@ use yii\helpers\Url;
 			'keyboard' => TRUE,	// Kyboard 
 		]
 	]);
-	echo "<div id='content-pekerja-create'></div>";
+	echo "<div id='content-payment-create'></div>";
 	Modal::end();
 ?>

@@ -55,7 +55,7 @@ $this->registerCss("
 ");
 	$pageTitleUser='<span class="fa-stack fa-xs text-right" style="color:red">				  
 				  <i class="fa fa-share fa-1x"></i>
-				</span> <b>Data Pekerja </b>
+				</span> <b>Login User </b>
 	';
 
 	$bColorUser='rgba(87,114,111, 1)';

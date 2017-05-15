@@ -91,14 +91,14 @@ class ProdakController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreateProduk()
     {
         $model = new Prodak();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+            return $this->redirect(['index', 'id' => $model->ID]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('_form', [
                 'model' => $model,
             ]);
         }
@@ -115,9 +115,9 @@ class ProdakController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+            return $this->redirect(['index', 'id' => $model->ID]);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('view', [
                 'model' => $model,
             ]);
         }

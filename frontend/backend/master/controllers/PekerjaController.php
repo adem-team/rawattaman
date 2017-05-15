@@ -65,18 +65,28 @@ class PekerjaController extends Controller
     public function actionIndex()
     {
 		$paramCari=Yii::$app->getRequest()->getQueryParam('id');
+		$paramSrc=Yii::$app->getRequest()->getQueryParam('idsrc');
+		if($paramCari){
+			$searchModel = new PekerjaSearch(['ID_PEKERJA'=>$paramSrc]);
+			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+			$modelViewKayawan = $this->findModel($paramCari!=''?$paramCari:$paramSrc);
+			
+			return $this->render('index', [
+				'searchModel' => $searchModel,
+				'dataProvider' => $dataProvider,
+				'modelViewKayawan'=>$modelViewKayawan
+			]);
+		}else{
+			$searchModel = new PekerjaSearch();
+			$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+			$modelViewKayawan = $this->findModel('RT0001');
 		
-        $searchModel = new PekerjaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$searchModelView = new PekerjaSearch(['ID_PEKERJA'=>$paramCari]);
-        $dataProviderView = $searchModelView->search(Yii::$app->request->queryParams);
-		$modelViewKayawan =  $dataProviderView->getModels()[0];
-		
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-			'modelViewKayawan'=>$modelViewKayawan
-        ]);
+			return $this->render('index', [
+				'searchModel' => $searchModel,
+				'dataProvider' => $dataProvider,
+				'modelViewKayawan'=>$modelViewKayawan
+			]);
+		}      
     }
 
     /**
@@ -98,12 +108,25 @@ class PekerjaController extends Controller
      */
     public function actionCreate()
     {
+		
+		// print_r($digitRslt);
+		// die();
+		
         $model = new Pekerja();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID_PEKERJA]);
+		
+        if ($model->load(Yii::$app->request->post())) {
+			//GET PRIMARY KEY GENDRATE.
+			$modelCode = Pekerja::find()->where('ID_PEKERJA<>""')->max('ID_PEKERJA');
+			$ambilNumber=substr($modelCode, 2, 4)+1;
+			$digitRslt=str_pad($ambilNumber,4,"0",STR_PAD_LEFT);
+			
+			$model->ID_PEKERJA='RT'.$digitRslt;
+			$model->CREATE_BY=Yii::$app->getUserOpt->user()['username'];
+			$model->CREATE_AT=date("Y-m-d H:i:s");
+			$model->save();
+            return $this->redirect(['index', 'idsrc' => $model->ID_PEKERJA]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('_form', [
                 'model' => $model,
             ]);
         }
@@ -119,8 +142,10 @@ class PekerjaController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID_PEKERJA]);
+        if ($model->load(Yii::$app->request->post()) ) {			
+			$model->UPDATE_BY=Yii::$app->getUserOpt->user()['username'];
+			$model->save();
+            return $this->redirect(['index', 'idsrc' =>$id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

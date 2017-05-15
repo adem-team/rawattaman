@@ -43,6 +43,10 @@ $this->registerCss("
 		border-color: #ddd;
 	}
 ");
+
+$this->registerJs($this->render('modal_payment.js'),View::POS_READY);
+echo $this->render('modal_payment'); //echo difinition
+
 	$pagePayStatus='<span class="fa-stack fa-xs text-right" style="color:red">				  
 				  <i class="fa fa-share fa-1x"></i>
 				</span> <b>PayStatus </b>
@@ -146,7 +150,7 @@ $this->registerCss("
 		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			'heading'=>$pagePayStatus,
+			'heading'=>$pagePayStatus. ' '.tombolCreatePayment(),
 			//'type'=>'',
 			'before'=>false,
 			'footer'=>false,			

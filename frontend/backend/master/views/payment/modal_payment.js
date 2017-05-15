@@ -12,9 +12,9 @@
  *  PRODUK CREATE.
 */
 $.fn.modal.Constructor.prototype.enforceFocus = function(){};	
-$(document).on('click','#button-pekerja-create', function(ehead){ 			  
-	$('#modal-pekerja-create').modal('show')
-	.find('#content-pekerja-create').html('<i class=\"fa fa-2x fa-spinner fa-spin\"></i>')
+$(document).on('click','#button-payment-create', function(ehead){ 			  
+	$('#modal-payment-create').modal('show')
+	.find('#content-payment-create').html('<i class=\"fa fa-2x fa-spinner fa-spin\"></i>')
 	.load(ehead.target.value);
 });
 

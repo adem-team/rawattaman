@@ -95,10 +95,14 @@ class TodolistController extends Controller
     {
         $model = new Todolist();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+        if ($model->load(Yii::$app->request->post())) {
+			
+			$model->CREATE_BY=Yii::$app->getUserOpt->user()['username'];
+			$model->CREATE_AT=date("Y-m-d H:i:s");
+			$model->save();
+            return $this->redirect(['index', 'id' => $model->ID]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('_Form', [
                 'model' => $model,
             ]);
         }
@@ -114,10 +118,13 @@ class TodolistController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ID]);
+        if ($model->load(Yii::$app->request->post())) {
+			
+			$model->UPDATE_BY=Yii::$app->getUserOpt->user()['username'];
+			$model->save();
+            return $this->redirect(['index', 'id' => $model->ID]);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('view', [
                 'model' => $model,
             ]);
         }
