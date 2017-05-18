@@ -32,7 +32,7 @@ class RatingController extends ActiveController
 	/**
 	  * Source Database declaration 
 	 */
-    public $modelClass = 'api\modules\master\models\RatingSearch';
+    public $modelClass = 'api\modules\master\models\Rating';
 	public $serializer = [
 		'class' => 'yii\rest\Serializer',
 		'collectionEnvelope' => 'rating',
@@ -103,10 +103,14 @@ class RatingController extends ActiveController
 
 	public function actionUpdate()
     {
-        $params     	= $_REQUEST; 
-		$JADWAL_ID		= isset($_REQUEST['JADWAL_ID'])!=''?$_REQUEST['JADWAL_ID']:'';
+        $params     		= $_REQUEST; 
+		$JADWAL_ID			= isset($_REQUEST['JADWAL_ID'])!=''?$_REQUEST['JADWAL_ID']:'';
+		$NILAI				= isset($_REQUEST['NILAI'])!=''?$_REQUEST['NILAI']:'';
+		$NILAI_KETERANGAN	= isset($_REQUEST['NILAI_KETERANGAN'])!=''?$_REQUEST['NILAI_KETERANGAN']:'';
 		$model= Rating::find()->where(['JADWAL_ID'=>$JADWAL_ID])->one();	
 		$model->attributes=$params;				
+		$model->NILAI=$NILAI;				
+		$model->NILAI_KETERANGAN=$NILAI_KETERANGAN;				
 		if ($model->save()) 
 		{
 			return $model->attributes;
