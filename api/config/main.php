@@ -98,8 +98,8 @@ return [
 							'PUT' => 'update',
 							'POST' => 'create',
 							'GET,HEAD' => 'index',
-							'{id}' => 'options',
-							'' => 'options',							
+							// '{id}' => 'options',
+							// '' => 'options',							
 						]
                         //'extraPatterns' => ['GET search' => 'search'],
 
