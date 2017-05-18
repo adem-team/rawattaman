@@ -94,8 +94,8 @@ return [
 							'master/pekerja',												
 						],
 						'patterns' => [
-							'PUT,PATCH {id}' => 'update',
-							//'PUT' => 'update',
+							//'PUT,PATCH {id}' => 'update',
+							'PUT' => 'update',
 							'POST' => 'create',
 							'GET,HEAD' => 'index',
 							'{id}' => 'options',
