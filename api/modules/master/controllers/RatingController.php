@@ -43,14 +43,14 @@ class RatingController extends ActiveController
      */
     public function behaviors()    {
         return ArrayHelper::merge(parent::behaviors(), [
-           /*  'authenticator' => [
+            'authenticator' => [
                 'class' => CompositeAuth::className(),
                 'authMethods' => [
                     //['class' => HttpBearerAuth::className()],
                     // ['class' => QueryParamAuth::className(), 'tokenParam' => 'access-token'],
                 ],
                 'except' => ['options']
-            ], */
+            ],
 			'bootstrap'=> [
 				'class' => ContentNegotiator::className(),
 				'formats' => [
@@ -105,12 +105,12 @@ class RatingController extends ActiveController
     {
         $params     		= $_REQUEST; 
 		$JADWAL_ID			= isset($_REQUEST['JADWAL_ID'])!=''?$_REQUEST['JADWAL_ID']:'';
-		$NILAI				= isset($_REQUEST['NILAI'])!=''?$_REQUEST['NILAI']:'';
-		$NILAI_KETERANGAN	= isset($_REQUEST['NILAI_KETERANGAN'])!=''?$_REQUEST['NILAI_KETERANGAN']:'';
+		// $NILAI				= isset($_REQUEST['NILAI'])!=''?$_REQUEST['NILAI']:'';
+		// $NILAI_KETERANGAN	= isset($_REQUEST['NILAI_KETERANGAN'])!=''?$_REQUEST['NILAI_KETERANGAN']:'';
 		$model= Rating::find()->where(['JADWAL_ID'=>$JADWAL_ID])->one();	
 		$model->attributes=$params;				
-		$model->NILAI=$NILAI;				
-		$model->NILAI_KETERANGAN=$NILAI_KETERANGAN;				
+		// $model->NILAI=$NILAI;				
+		// $model->NILAI_KETERANGAN=$NILAI_KETERANGAN;				
 		if ($model->save()) 
 		{
 			return $model->attributes;
