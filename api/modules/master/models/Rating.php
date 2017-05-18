@@ -72,6 +72,12 @@ class Rating extends \yii\db\ActiveRecord
 			'JAM_KELUAR'=>function($model){
 				return $model->JAM_KELUAR;
 			},				
+			'NILAI'=>function($model){
+				return $model->NILAI;
+			},				
+			'NILAI_KETERANGAN'=>function($model){
+				return $model->NILAI_KETERANGAN;
+			},				
 			'STATUS'=>function($model){
 				return $model->STATUS;
 			},				
