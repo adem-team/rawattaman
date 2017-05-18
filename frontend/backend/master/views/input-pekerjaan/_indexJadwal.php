@@ -288,7 +288,7 @@ $this->registerCss("
 		'toolbar' => false,
 		'panel'=>[
 			'heading'=>tombolCreateJadwal(),
-			'type'=>'info',
+			//'type'=>'info',
 			'before'=>false,
 			'footer'=>false,
 			

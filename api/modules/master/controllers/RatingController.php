@@ -43,14 +43,14 @@ class RatingController extends ActiveController
      */
     public function behaviors()    {
         return ArrayHelper::merge(parent::behaviors(), [
-            'authenticator' => [
+           /*  'authenticator' => [
                 'class' => CompositeAuth::className(),
                 'authMethods' => [
                     //['class' => HttpBearerAuth::className()],
                     // ['class' => QueryParamAuth::className(), 'tokenParam' => 'access-token'],
                 ],
                 'except' => ['options']
-            ],
+            ], */
 			'bootstrap'=> [
 				'class' => ContentNegotiator::className(),
 				'formats' => [

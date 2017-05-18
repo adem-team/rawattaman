@@ -96,7 +96,9 @@ return [
 						'patterns' => [
 							'PUT' => 'update',
 							'POST' => 'create',
-							'GET,HEAD' => 'index'							
+							'GET,HEAD' => 'index',
+							'{id}' => 'options',
+							'' => 'options',							
 						]
                         //'extraPatterns' => ['GET search' => 'search'],
 

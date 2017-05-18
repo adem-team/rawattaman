@@ -116,12 +116,17 @@ class InputPekerjaanController extends Controller
 	
 	public function actionCreateJadwal()
 	{
-		$model = new Item();
+		$model = new Jadwal();
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->ID]);
-			} else {
-			return $this->renderAjax('_formHarga', [
+		if ($model->load(Yii::$app->request->post()) ) {
+			$model->CREATE_BY=Yii::$app->getUserOpt->user()['username'];
+			$model->CREATE_AT=date("Y-m-d H:i:s");
+			$model->save();
+			return $this->redirect(['index', 'id' => $model->ACCESS_UNIX]);
+		
+		} else {
+			return $this->renderAjax('_formJadwal', [
+				'keyACCESS_UNIX'=>Yii::$app->getRequest()->getQueryParam('id'),
 				'model' => $model,
 			]);
 		}

@@ -140,7 +140,7 @@ use yii\helpers\Url;
 	/*
 	 * MODAL - JADWAL CREATE.
 	*/
-	$HeaderColor_Jadwal='rgba(80, 150, 241, 1)';//' rgba(74, 206, 231, 1)';
+	$HeaderColor_Jadwal='rgba(175, 183, 164, 0.52)';//' rgba(74, 206, 231, 1)';
 	$bgIconColor_Jadwal='#f08f2e';
 	Modal::begin([
 		'id' => 'modal-jadwal-create',
