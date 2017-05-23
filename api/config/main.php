@@ -92,6 +92,7 @@ return [
 							'master/jadwal-junjungan',												
 							'master/rating',												
 							'master/pekerja',												
+							'master/feedback',												
 						],
 						'patterns' => [
 							//'PUT,PATCH {id}' => 'update',
