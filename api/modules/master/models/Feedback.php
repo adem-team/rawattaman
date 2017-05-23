@@ -78,8 +78,8 @@ class Feedback extends \yii\db\ActiveRecord
 			'STATUS'=>function($model){
 				return $model->STATUS;
 			},
-			'NOTE'=>function(){
-				return $this->pekerjaTbl;
+			'NOTE'=>function($model){
+				return $model->NOTE;
 			}
 		];
 	}
