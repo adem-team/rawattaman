@@ -91,6 +91,6 @@ class Jadwal extends \yii\db\ActiveRecord
 	}
 	
 	public function getClientNm(){
-		return $this->profileTbl->NM_DEPAN;
+		return $this->profileTbl['NM_DEPAN'];
 	}
 }
