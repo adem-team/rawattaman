@@ -95,7 +95,7 @@ return [
 							'master/feedback',												
 						],
 						'patterns' => [
-							'PUT,PATCH {id}' => 'update',
+							'PUT {id}' => 'update',
 							'POST' => 'create',
 							'GET,HEAD' => 'index',
 							'{id}' => 'options',
