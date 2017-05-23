@@ -101,24 +101,50 @@ class RatingController extends ActiveController
         ];
     }
 
-	public function actionUpdate()
+	public function actionUpdate($id)
     {
-        $params     		= $_REQUEST; 
-		$JADWAL_ID			= isset($_REQUEST['JADWAL_ID'])!=''?$_REQUEST['JADWAL_ID']:'';
+        //$params     		= $_REQUEST; 
+		// $JADWAL_ID			= isset($_REQUEST['JADWAL_ID'])!=''?$_REQUEST['JADWAL_ID']:''; 
 		// $NILAI				= isset($_REQUEST['NILAI'])!=''?$_REQUEST['NILAI']:'';
 		// $NILAI_KETERANGAN	= isset($_REQUEST['NILAI_KETERANGAN'])!=''?$_REQUEST['NILAI_KETERANGAN']:'';
-		$model= Rating::find()->where(['JADWAL_ID'=>$JADWAL_ID])->one();	
-		$model->attributes=$params;				
-		// $model->NILAI=$NILAI;				
-		// $model->NILAI_KETERANGAN=$NILAI_KETERANGAN;				
-		if ($model->save()) 
-		{
-			return $model->attributes;
-		} 
-		else
-		{
-			return array('errors'=>$model->errors);
-		} 			
+		//$model= Rating::find()->where(['JADWAL_ID'=>$JADWAL_ID])->one();	
+		
+		//$request = Yii::$app->request;
+		//$queryParams = Yii::$app->request->queryParams;
+		$params = Yii::$app->request->bodyParams;		
+		$model= $this->findModel($id);
+		$model->attributes=$params;
+		//if (isset($request)) {
+			// $model->ACCESS_UNIX=$request->getBodyParam('ACCESS_UNIX');		
+			// $model->JADWAL_ID=$request->getBodyParam('JADWAL_ID');		
+			// $model->ID_PEKERJA=$request->getBodyParam('ID_PEKERJA');		
+			// $model->NILAI=$request->getBodyParam('NILAI');		
+			// $model->NILAI_KETERANGAN=$request->getBodyParam('NILAI_KETERANGAN');		
+			// $model->TGL=$request->getBodyParam('TGL');		
+			// $model->JAM_MASUK=$request->getBodyParam('JAM_MASUK');		
+			// $model->JAM_KELUAR=$request->getBodyParam('JAM_KELUAR');		
+			// $model->UPDATE_BY=$request->getBodyParam('ACCESS_UNIX');	
+			
+			if ($model->save()) 
+			{
+				return $model->attributes;
+			} 
+			else
+			{
+				return array('errors'=>$model->errors);
+			}
+		// }else {
+			// throw new \yii\web\MethodNotAllowedHttpException('You are not allowed to update data');
+		// }
+    }
+	
+	protected function findModel($id)
+    {
+        if (($model = Rating::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 }
 
