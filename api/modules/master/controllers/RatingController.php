@@ -88,7 +88,7 @@ class RatingController extends ActiveController
 					return $searchModel->search($param);
                 },
             ],
-			'options' => [
+			/* 'options' => [
 				'class' => 'yii\rest\IndexAction',
                 'modelClass' => $this->modelClass,
                 'prepareDataProvider' => function () {					
@@ -97,7 +97,7 @@ class RatingController extends ActiveController
                     $searchModel = new RatingSearch();
 					return $searchModel->search($param);
                 },
-            ], 
+            ],  */
         ];
     }
 

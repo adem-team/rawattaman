@@ -95,11 +95,13 @@ return [
 							'master/feedback',												
 						],
 						'patterns' => [
-							'PUT {id}' => 'update',
+							'PUT,PATCH {id}' => 'update',
+							'DELETE {id}' => 'delete',
+							'GET,HEAD {id}' => 'view',
 							'POST' => 'create',
 							'GET,HEAD' => 'index',
 							'{id}' => 'options',
-							'' => 'options',							
+							'' => 'options',					
 						]
                         //'extraPatterns' => ['GET search' => 'search'],
 
