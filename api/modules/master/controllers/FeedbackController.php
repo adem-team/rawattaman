@@ -100,6 +100,22 @@ class FeedbackController extends ActiveController
             ], 
         ];
     }
+	
+	public function actionCreate()
+    {
+		$params = Yii::$app->request->bodyParams;
+        $model = new Feedback();				    
+        $model->attributes=$params;
+        $model->CREATE_AT = date('Y:m:d H:i:s');//'2017-12-12 00:00';
+        if ($model->save()) 
+        {
+            return $model->attributes;
+        } 
+        else
+        {
+            return array('errors'=>$model->errors);
+        } 
+    }
 
 }
 
