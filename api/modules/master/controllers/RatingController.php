@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 
 use api\modules\master\models\Rating;
 use api\modules\master\models\RatingSearch;
@@ -88,7 +89,7 @@ class RatingController extends ActiveController
 					return $searchModel->search($param);
                 },
             ],
-			/* 'options' => [
+			'options' => [
 				'class' => 'yii\rest\IndexAction',
                 'modelClass' => $this->modelClass,
                 'prepareDataProvider' => function () {					
@@ -97,10 +98,20 @@ class RatingController extends ActiveController
                     $searchModel = new RatingSearch();
 					return $searchModel->search($param);
                 },
-            ],  */
+            ], 
         ];
     }
-
+	public function actionView($id)
+    {
+		$model= $this->findModel($id);
+		// if ($model){
+			return $model->attributes;
+		// } 
+		// else
+		// {
+			// return array('errors'=>$model->errors);
+		// }
+	}
 	public function actionUpdate($id)
     {
         //$params     		= $_REQUEST; 

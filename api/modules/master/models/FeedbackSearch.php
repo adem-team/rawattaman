@@ -41,12 +41,17 @@ class FeedbackSearch extends Feedback
      */
     public function search($params)
     {
+		$cnt = Feedback::find()->count();
         $query = Feedback::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'pagination' => [
+				'pageSize' => $cnt,
+			]
+			
         ]);
 
         $this->load($params);
