@@ -57,11 +57,11 @@ use yii\helpers\Url;
 	/*
 	 * Button - JADWAL CREATE.
 	*/
-	function tombolCreateJadwal(){
+	function tombolCreateJadwal($getAccessUnix){
 		// if(getPermission()){
 			// if(getPermission()->BTN_CREATE==1){
 				//$title1 = Yii::t('app', ' New');
-				$url = Url::toRoute(['/master/input-pekerjaan/create-jadwal']);
+				$url = Url::toRoute(['/master/input-pekerjaan/create-jadwal','id'=>$getAccessUnix]);
 				$options1 = ['value'=>$url,
 							'id'=>'button-jadwal-create',
 							'class'=>"btn btn-default btn-xs"  
@@ -82,11 +82,11 @@ use yii\helpers\Url;
 	/*
 	 * Button - JADWAL CREATE.
 	*/
-	function tombolCreateRating(){
+	function tombolCreateRating($getAccessUnix){
 		// if(getPermission()){
 			// if(getPermission()->BTN_CREATE==1){
 				//$title1 = Yii::t('app', ' New');
-				$url = Url::toRoute(['/master/input-pekerjaan/create-rating']);
+				$url = Url::toRoute(['/master/input-pekerjaan/create-rating','id'=>$getAccessUnix]);
 				$options1 = ['value'=>$url,
 							'id'=>'button-rating-create',
 							'class'=>"btn btn-default btn-xs"  
@@ -140,7 +140,7 @@ use yii\helpers\Url;
 	/*
 	 * MODAL - JADWAL CREATE.
 	*/
-	$HeaderColor_Jadwal='rgba(175, 183, 164, 0.52)';//' rgba(74, 206, 231, 1)';
+	$HeaderColor_Jadwal='rgba(80, 150, 241, 1)';//'rgba(175, 183, 164, 0.52)';//' rgba(74, 206, 231, 1)';
 	$bgIconColor_Jadwal='#f08f2e';
 	Modal::begin([
 		'id' => 'modal-jadwal-create',
@@ -150,7 +150,7 @@ use yii\helpers\Url;
 				<i class="fa fa-plus fa-stack-1x" style="color:#fbfbfb"></i>
 			</span><b> Tambahkan Jadwal Pekerjaan </b>
 		',		
-		'size' =>'modal-dm',
+		'size' =>'modal-lg',
 		'headerOptions'=>[
 			'style'=> 'border-radius:5px; background-color:'.$HeaderColor_Jadwal,
 		],

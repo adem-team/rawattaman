@@ -170,15 +170,18 @@ echo $this->render('modal_pekerjaan'); //echo difinition
 	]); 
 	
 	$dvIndexProfile= $this->render('_indexProfile',[
+		'getAccessUnix'=>$getAccessUnix,
 		'modelProfile'=>$modelProfile,
 	]);
 	
 	$gvIndexJadwal= $this->render('_indexJadwal',[
+		'getAccessUnix'=>$getAccessUnix,
 		'searchModelJadwal'=>$searchModelJadwal,
 		'dataProviderJadwal'=>$dataProviderJadwal
 	]);	
 	
 	$dvIndexRating= $this->render('_indexRating',[
+		'getAccessUnix'=>$getAccessUnix,
 		'searchModelRating'=>$searchModelRating,
 		'dataProviderRating'=>$dataProviderRating
 	]);

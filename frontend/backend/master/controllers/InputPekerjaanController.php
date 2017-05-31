@@ -91,6 +91,7 @@ class InputPekerjaanController extends Controller
         $dataProviderRating = $searchModelRating->search(Yii::$app->request->queryParams);
 		
 		return $this->render('index', [
+			'getAccessUnix'=>$paramCari,
 			'searchModel' => $searchModel!=''?$searchModel:false,
 			'dataProvider' => $dataProvider,
 			'modelProfile'=>$modelProfile,
@@ -103,43 +104,46 @@ class InputPekerjaanController extends Controller
 
 	public function actionCreateClient()
 	{
-		$model = new Item();
+		$model = new UserProfil();
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->ID]);
+			return $this->redirect(['index', 'id' => $model->ID]);
 			} else {
-			return $this->renderAjax('_formHarga', [
+			return $this->renderAjax('_formProfile', [
 				'model' => $model,
 			]);
 		}
 	}
 	
-	public function actionCreateJadwal()
+	public function actionCreateJadwal($id)
 	{
+		$paramCari=Yii::$app->getRequest()->getQueryParam('id');
 		$model = new Jadwal();
 
 		if ($model->load(Yii::$app->request->post()) ) {
 			$model->CREATE_BY=Yii::$app->getUserOpt->user()['username'];
 			$model->CREATE_AT=date("Y-m-d H:i:s");
 			$model->save();
-			return $this->redirect(['index', 'id' => $model->ACCESS_UNIX]);
+			return $this->redirect(['index', 'id' => $model->ACCESS_UNIX,'#'=>'tab-b']);
 		
 		} else {
 			return $this->renderAjax('_formJadwal', [
-				'keyACCESS_UNIX'=>Yii::$app->getRequest()->getQueryParam('id'),
+				'keyACCESS_UNIX'=>$id,
 				'model' => $model,
 			]);
 		}
 	}
 	
-	public function actionCreateRating()
+	public function actionCreateRating($id)
 	{
-		$model = new Item();
-
+		$model = new Rating();
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->ID]);
-			} else {
-			return $this->renderAjax('_formHarga', [
+			
+		}
+		else{
+			return $this->renderAjax('_formRating', [
+				'keyACCESS_UNIX'=>$id,
 				'model' => $model,
 			]);
 		}

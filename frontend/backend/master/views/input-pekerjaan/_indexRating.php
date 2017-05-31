@@ -100,7 +100,7 @@ $this->registerCss("
 		
 	]); */
 	
-	$bColorRating='rgba(80, 150, 241, 1)';
+	$bColorRating='rgba(133, 240, 51, 1)';//'rgba(80, 150, 241, 1)';
 	$gvAttrating=[
 		[
 			'class'=>'kartik\grid\SerialColumn',
@@ -237,7 +237,7 @@ $this->registerCss("
 		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			'heading'=>tombolCreateRating(),
+			'heading'=>tombolCreateRating($getAccessUnix),
 			'type'=>'info',
 			'before'=>false,
 			'footer'=>false,			

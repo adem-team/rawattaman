@@ -287,7 +287,7 @@ $this->registerCss("
 		'export' => false,		
 		'toolbar' => false,
 		'panel'=>[
-			'heading'=>tombolCreateJadwal(),
+			'heading'=>tombolCreateJadwal($getAccessUnix),
 			//'type'=>'info',
 			'before'=>false,
 			'footer'=>false,
