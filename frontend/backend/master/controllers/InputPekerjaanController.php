@@ -118,21 +118,63 @@ class InputPekerjaanController extends Controller
 	public function actionCreateJadwal($id)
 	{
 		$paramCari=Yii::$app->getRequest()->getQueryParam('id');
-		$model = new Jadwal();
-
-		if ($model->load(Yii::$app->request->post()) ) {
-			$model->CREATE_BY=Yii::$app->getUserOpt->user()['username'];
-			$model->CREATE_AT=date("Y-m-d H:i:s");
-			$model->save();
-			return $this->redirect(['index', 'id' => $model->ACCESS_UNIX,'#'=>'tab-b']);
-		
+		$modelJadwal = new Jadwal();
+		$modelJadwal->scenario = 'input_jadwal';
+		if ($modelJadwal->load(Yii::$app->request->post()) ) {
+			$dataPost=Yii::$app->request->post();
+			$modelJadwal->CREATE_BY=Yii::$app->getUserOpt->user()['username'];
+			$modelJadwal->CREATE_AT=date("Y-m-d H:i:s");
+			// print_r(self::getDayNmPHP($dataPost['Jadwal']['JAM_MASUK']));
+			// die();
+			$modelJadwal->ID_PEKERJA=self::toManualArray($dataPost['Jadwal']['ID_PEKERJA']);
+			$modelJadwal->TODOLIST=self::toManualArray($dataPost['Jadwal']['TODOLIST']);
+			$modelJadwal->HARI=self::getDayNmPHP($dataPost['Jadwal']['JAM_MASUK']);
+			$modelJadwal->save();
+			return $this->redirect(['index', 'id' => $modelJadwal->ACCESS_UNIX,'#'=>'tab-b']);		
 		} else {
 			return $this->renderAjax('_formJadwal', [
 				'keyACCESS_UNIX'=>$id,
-				'model' => $model,
+				'modelJadwal' => $modelJadwal,
 			]);
 		}
 	}
+	
+	private function toManualArray($assArray){
+		$rowRslt='';
+		if ($assArray!=''){
+			foreach($assArray as $rows){
+				if ($rowRslt==''){
+					$rowRslt=$rows;
+				}else{
+					$rowRslt=$rowRslt.','.$rows;
+				}				
+			};
+			return $rowRslt;
+		}else{
+			return '';
+		}		
+	}
+	
+	Public function getDayNmPHP($tanggal){		
+		$valDate=date_format(date_create($tanggal),'w');
+        if ($valDate==0){
+            return "Senin";
+        }elseif ($valDate==1){
+            return "Selasa";
+        }elseif ($valDate==2){
+            return "Rabu";
+        }elseif ($valDate==3){
+            return "Kamis";
+        }elseif ($valDate==4){
+            return "Jumat";
+        }elseif ($valDate==5){
+            return "Sabtu";
+        }elseif ($valDate==6){
+            return "Minggu";
+        }else{
+            return "NotSet";
+        }
+    }
 	
 	public function actionCreateRating($id)
 	{

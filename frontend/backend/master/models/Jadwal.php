@@ -8,6 +8,7 @@ use frontend\backend\master\models\UserProfil;
 
 class Jadwal extends \yii\db\ActiveRecord
 {
+	 const SCENARIO_INPUT_JADWAL = 'input_jadwal';
     /**
      * @inheritdoc
      */
@@ -22,10 +23,11 @@ class Jadwal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['TGL', 'JAM_MASUK', 'JAM_KELUAR', 'CREATE_AT', 'UPDATE_AT','ClientNm'], 'safe'],
-            [['TODOLIST', 'KETERANGAN'], 'string'],
+            [['TGL', 'JAM_MASUK', 'JAM_KELUAR','ID_PEKERJA', 'TODOLIST','KETERANGAN','STATUS'], 'required','on'=>self::SCENARIO_INPUT_JADWAL],
+            [['TGL', 'JAM_MASUK', 'JAM_KELUAR', 'CREATE_AT', 'UPDATE_AT','ClientNm','ID_PEKERJA', 'TODOLIST'], 'safe'],
+            [['KETERANGAN'], 'string'],
             [['STATUS'], 'integer'],
-            [['ACCESS_UNIX', 'ID_PEKERJA', 'CREATE_BY', 'UPDATE_BY'], 'string', 'max' => 50],
+            [['ACCESS_UNIX','CREATE_BY', 'UPDATE_BY'], 'string', 'max' => 50],
             [['HARI'], 'string', 'max' => 20],
         ];
     }
