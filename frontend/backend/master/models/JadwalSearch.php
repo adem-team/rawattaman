@@ -68,6 +68,7 @@ class JadwalSearch extends Jadwal
 			'asc' => ['user_profil.NM_DEPAN' => SORT_ASC],
 			'desc' => ['user_profil.NM_DEPAN' => SORT_DESC],
 		];
+	
         // grid filtering conditions
         $query->andFilterWhere([
             'ID' => $this->ID,
@@ -87,7 +88,7 @@ class JadwalSearch extends Jadwal
             ->andFilterWhere(['like', 'UPDATE_AT', $this->UPDATE_AT])
             ->andFilterWhere(['like', 'user_profil.NM_DEPAN', $this->ClientNm])
             ->andFilterWhere(['like', 'UPDATE_BY', $this->UPDATE_BY]);
-
+		$query->OrderBy(['TGL'=>SORT_DESC,'JAM_MASUK'=>SORT_DESC]);
         return $dataProvider;
     }
 }

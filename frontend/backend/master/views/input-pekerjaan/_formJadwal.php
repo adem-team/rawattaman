@@ -35,6 +35,12 @@ use frontend\backend\master\models\UserProfil;
 		'model' => $modelProfile,
 		'attributes'=>[
 			[
+				'attribute' =>'ACCESS_UNIX',
+				'labelColOptions' => ['style' => 'text-align:right;width: 30%'],
+				'displayOnly'=>true,	
+				'format'=>'raw'
+			],
+			[
 				'attribute' =>'KTP',
 				'labelColOptions' => ['style' => 'text-align:right;width: 30%'],
 				'displayOnly'=>true,	

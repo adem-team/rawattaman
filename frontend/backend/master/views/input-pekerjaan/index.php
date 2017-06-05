@@ -202,17 +202,17 @@ echo $this->render('modal_pekerjaan'); //echo difinition
 					<?php
 						$items=[
 							[
-								'label'=>'<i class="fa fa-sign-in fa-lg"></i>  Profile','content'=>$dvIndexProfile,
+								'label'=>'<i class="fa fa-users fa-lg"></i>  Profile','content'=>$dvIndexProfile,
 								//'active'=>$tab0,
 								'options' => ['id' => 'tab-a'],
 							],	
 							[
-								'label'=>'<i class="fa fa-sign-in fa-lg"></i>  Jadwal','content'=>$gvIndexJadwal,
+								'label'=>'<i class="fa fa-calendar-check-o fa-lg"></i>  Jadwal','content'=>$gvIndexJadwal,
 								//'active'=>$tab0,
 								'options' => ['id' => 'tab-b'],
 							],
 							[
-								'label'=>'<i class="fa fa-sign-out fa-lg"></i>  Reting','content'=>$dvIndexRating,
+								'label'=>'<i class="fa fa-star-half-full fa-lg"></i>  Rating','content'=>$dvIndexRating,
 								//'active'=>$tab1,
 								'options' => ['id' => 'tab-c'],
 							]

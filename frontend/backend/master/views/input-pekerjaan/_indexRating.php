@@ -136,19 +136,19 @@ $this->registerCss("
 			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
 			
 		]	
-		,//JADWAL_ID
-		[
-			'attribute'=>'JADWAL_ID',
-			'filterType'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
-			'hAlign'=>'right',
-			'vAlign'=>'middle',
-			'mergeHeader'=>false,
-			'noWrap'=>false,
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
+		//,//JADWAL_ID
+		// [
+			// 'attribute'=>'JADWAL_ID',
+			// 'filterType'=>true,
+			// 'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			// 'hAlign'=>'right',
+			// 'vAlign'=>'middle',
+			// 'mergeHeader'=>false,
+			// 'noWrap'=>false,
+			// 'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorRating),
+			// 'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
 			
-		]	
+		// ]	
 		,//ID_PEKERJA
 		[
 			'attribute'=>'ID_PEKERJA',

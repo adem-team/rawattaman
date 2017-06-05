@@ -178,18 +178,41 @@ class InputPekerjaanController extends Controller
 	
 	public function actionCreateRating($id)
 	{
-		$model = new Rating();
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->ID]);
+		$modelJadwal= $this->findModelJadwal($id);
+		// print_r($modelJadwal);
+		// die();
+		$modelRating = new Rating();
+		if ($modelRating->load(Yii::$app->request->post())) {
+			$dataPost=Yii::$app->request->post();
+			// print_r(self::toManualArray($dataPost['Rating']['ID_PEKERJA']));
+			// die();
 			
+			$modelRating->CREATE_BY=Yii::$app->getUserOpt->user()['username'];
+			$modelRating->CREATE_AT=date("Y-m-d H:i:s");
+			$modelRating->ID_PEKERJA=self::toManualArray($dataPost['Rating']['ID_PEKERJA']);
+			if($modelRating->save()){
+				$modelJadwal->STATUS=2;
+				$modelJadwal->save();
+			};
+			return $this->redirect(['index', 'id' => $modelJadwal->ACCESS_UNIX,'#'=>'tab-c']);				
 		}
 		else{
 			return $this->renderAjax('_formRating', [
-				'keyACCESS_UNIX'=>$id,
-				'model' => $model,
+				'keyACCESS_UNIX'=>$modelJadwal->ACCESS_UNIX,
+				'modelRating' => $modelRating,
+				'modelJadwal'=>$modelJadwal
 			]);
 		}
 	}
+	 
+	protected function findModelJadwal($id)
+    {
+        if (($model = Jadwal::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 	
     /**
      * Displays a single Item model.
