@@ -75,10 +75,12 @@ return [
                         'class' => 'yii\rest\UrlRule',
                         'controller' =>[
 							'login/user-token',
+							'login/user-reset',
 							'login/user'
 						],						
 						'patterns' => [
 							'PUT' => 'update',
+							//'PUT,PATCH {id}' => 'update',
 							'POST' => 'create',
 							'GET,HEAD' => 'index'							
 						]
