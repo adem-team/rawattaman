@@ -121,7 +121,7 @@ class FeedbackController extends ActiveController
 			Yii::$app->mailer->compose()
 			->setFrom(['lukisongroup@gmail.com' => 'POSTMAN-RAWATTAMAN'])
 			//->setTo([$model->email])
-			->setTo(['lukisongroup@gmail.com'])
+			->setTo(['lukisongroup@gmail.com','rawat.taman@yahoo.com'])
 			//->setTo(['rawat.taman@yahoo.com'])
 			->setSubject('CUSTOMER FEEDBACK')
 			->setHtmlBody($contentBody)
