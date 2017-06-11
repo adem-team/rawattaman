@@ -22,15 +22,13 @@ use api\modules\login\models\UserTokenSearch;
 use api\modules\login\models\UserProfil;
 
 /**
-  * RESET PASSWORD AFTER CODE NOTIFY : http://rt.kontrolgampang.com/login/user-reset-codes
-  * http://rt.kontrolgampang.com/login/user-resets
-  * metohe   : POST
-  * result   : true "jika berhasil"; 
-  * result   : wrong-code "jika kode yang dimasukan dari email notify salah"
-  * result   : data-empty "jika data post salah"
-  * post body: username,ACCESS_UNIX,email,password_reset_token,password_hash
+  * logintest AND CHECK TOKEN USER.
+  * auth_key		: Token Primary.
+  * access_token 	: Token Access, after logintest for Access Api data POST,GET,PUT.
   * @author ptrnov  <piter@lukison.com>
   * @since 1.2
+  * CMD : curl -u username:password http://api.kontrolgampang.int/logintest/user-tokens?username=trial1
+  * CMD : curl -u trial1:semangat2016 http://api.kontrolgampang.int/logintest/user-tokens?username=trial1
  */
 class UserResetController extends ActiveController
 {	
@@ -111,40 +109,93 @@ class UserResetController extends ActiveController
 		//unset($actions['update'], $actions['create'], $actions['delete'], $actions['view']);
 		return $actions;
 	}
-	
-	public function actionCreate()
-    {
-        
-		$paramsBody 			= Yii::$app->request->bodyParams;		
-		$username				= isset($_REQUEST['username'])!=''?$_REQUEST['username']:'';
-		$access_unix			= isset($_REQUEST['ACCESS_UNIX'])!=''?$_REQUEST['ACCESS_UNIX']:'';
-		$email					= isset($_REQUEST['email'])!=''?$_REQUEST['email']:'';
-		$password_reset			= isset($_REQUEST['password_reset_token'])!=''?$_REQUEST['password_reset_token']:'';
-		$password_hash			= isset($_REQUEST['password_hash'])!=''?$_REQUEST['password_hash']:'';
+	/**
+     * Model Search Data.
+     */
+	public function actionIndex()
+    {		
+        $paramsBody 	= Yii::$app->request->bodyParams;		
+		$access_unix	= isset($_REQUEST['ACCESS_UNIX'])!=''?$_REQUEST['ACCESS_UNIX']:'';
 		
-		//MODEL
-		$modelCnt= UserToken::find()->where(['ACCESS_UNIX'=>$access_unix,'username'=>$username])->count();
-		$model= UserToken::find()->where(['ACCESS_UNIX'=>$access_unix,'username'=>$username])->one();		
 		
+		$modelCnt= UserToken::find()->where(['ACCESS_UNIX'=>$access_unix])->count();
+		$model= UserToken::find()->where(['ACCESS_UNIX'=>$access_unix])->one();
+		//$model->attributes=$params;
+		
+		//Reset Code.
+		$datetomecode=str_replace(':','',date('m:d H:i'));
+		$codeReset = str_replace(' ','',$datetomecode);
+				
 		if($modelCnt){
-			if($model->validateCodeReset($password_reset)){
-				//$model->attributes=$paramsBody;	
-				//SET PASSWORD MD5.
-				if(isset($paramsBody['password_hash'])){
-					$model->setPassword($paramsBody['password_hash']);
-				};	
-				// if(isset($paramsBody['password_reset'])){
-					// $model->setCodeReset($paramsBody['password_reset']);
-				// };				
-				$model->save();
-				return array('result'=>'true');
-			}else{
-				return array('result'=>'wrong-code');
-			}
+			//Email-Content
+			$contentBody= $this->renderPartial('_postmanBody',[
+				'model'=>$model,
+				'codeReset'=>$codeReset
+			]);	
+			
+			//Email-Send 			
+			Yii::$app->mailer->compose()
+			->setFrom(['lukisongroup@gmail.com' => 'POSTMAN-RAWATTAMAN'])
+			->setTo([$model->email])
+			//->setTo(['piter@lukison.com'])
+			//->setTo(['yosika@lukison.com','timbul.siregar@lukison.com','piter@lukison.com'])
+			//->setTo(['sales_esm@lukison.com','marketing_esm@lukison.com'])
+			->setSubject('CUSTOMER RESET PASSWORD')
+			->setHtmlBody($contentBody)
+			//->attach($filenameAll,[$filename,'xlsx'])
+			->send(); 
+			$model->attributes=$paramsBody;
+			$model->password_hash=Yii::$app->security->generatePasswordHash($codeReset);
+			return $model->attributes;
 		}else{
-			return array('result'=>'data-empty');
+			return array('errors'=>$model->errors);
+		} 
+		
+    }	
+
+	public function actionUpdate($username)
+    {
+        //$params     		= $_REQUEST; 
+		// $JADWAL_ID			= isset($_REQUEST['JADWAL_ID'])!=''?$_REQUEST['JADWAL_ID']:''; 
+		// $NILAI				= isset($_REQUEST['NILAI'])!=''?$_REQUEST['NILAI']:'';
+		// $NILAI_KETERANGAN	= isset($_REQUEST['NILAI_KETERANGAN'])!=''?$_REQUEST['NILAI_KETERANGAN']:'';
+		//$model= Rating::find()->where(['JADWAL_ID'=>$JADWAL_ID])->one();	
+		
+		//$request = Yii::$app->request;
+		//$queryParams = Yii::$app->request->queryParams;
+		$params = Yii::$app->request->bodyParams;		
+		$model= UserToken::find()->where(['username'=>$username])->one();
+		$model->attributes=$params;
+		if(isset($params['password_hash'])){
+			$model->password_hash=Yii::$app->security->generatePasswordHash($params['password_hash']);
+		}
+		if ($model->save()) 
+		{
+			//NOTED Gmail Account
+			//https://www.google.com/settings/security/lesssecureapps.  //ON
+			//https://accounts.google.com/b/0/DisplayUnlockCaptcha		//Continous
+			
+			$contentBody= $this->renderPartial('_postmanBody',[
+				'model'=>$model
+			]);	
+			Yii::$app->mailer->compose()
+			->setFrom(['lukisongroup@gmail.com' => 'POSTMAN-RAWATTAMAN'])
+			->setTo(['ptr.nov@gmail.com'])
+			//->setTo(['piter@lukison.com'])
+			//->setTo(['yosika@lukison.com','timbul.siregar@lukison.com','piter@lukison.com'])
+			//->setTo(['sales_esm@lukison.com','marketing_esm@lukison.com'])
+			->setSubject('RESET PASSWORD CUSTOMER')
+			->setHtmlBody($contentBody)
+			//->attach($filenameAll,[$filename,'xlsx'])
+			->send(); 
+			return $model->attributes;
+		} 
+		else
+		{
+			return array('errors'=>$model->errors);
 		}
 	}
+	
 	
 }
 

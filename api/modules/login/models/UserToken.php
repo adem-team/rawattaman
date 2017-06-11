@@ -55,6 +55,7 @@ class UserToken extends \yii\db\ActiveRecord
             'username' => Yii::t('app', 'User Name'),
             'email' => Yii::t('app', 'email'),
 			'password_hash' => Yii::t('app', 'Password Hash'),
+			'password_reset_token' => Yii::t('app', 'Reset Password'),
 			'ACCESS_UNIX' => Yii::t('app', 'ACCESS_UNIX'),
 			'UUID' => Yii::t('app', 'UUID'),		
 			'ID_FB' => Yii::t('app', 'ID_FB'),		
@@ -75,6 +76,9 @@ class UserToken extends \yii\db\ActiveRecord
 			},
 			'access_token'=>function($model){
 				return $model->auth_key;
+			},	
+			'password_reset_token'=>function($model){
+				return $model->password_reset_token;
 			},	
 			'ACCESS_UNIX'=>function($model){
 				return $model->ACCESS_UNIX;
@@ -112,5 +116,25 @@ class UserToken extends \yii\db\ActiveRecord
 	public function getProfileTbl(){
 		return $this->hasOne(UserProfil::className(), ['ACCESS_UNIX' => 'ACCESS_UNIX']);
 	}
+	
+	public function setPassword($password)
+    {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+	
+	public function setCodeReset($password)
+    {
+        $this->password_reset_token = Yii::$app->security->generatePasswordHash($password);
+    }
+	
+	public function validateCodeReset($password)
+    {
+		  // if($password==''){
+			    // return false;
+		  // }else{
+			   return Yii::$app->security->validatePassword($password, $this->password_reset_token);
+		  // }
+       
+    }
 }
 ?>

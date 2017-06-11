@@ -75,6 +75,7 @@ return [
                         'class' => 'yii\rest\UrlRule',
                         'controller' =>[
 							'login/user-token',
+							'login/user-reset-code',
 							'login/user-reset',
 							'login/user'
 						],						
@@ -213,7 +214,20 @@ return [
 			'format' => yii\web\Response::FORMAT_JSON,
 			'charset' => 'UTF-8',
 			// ...
-		]
+		],
+		'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+			'transport' => [
+              'class' => 'Swift_SmtpTransport',
+              'host' => 'smtp.gmail.com',
+			  //'smtpauth'   => true,              
+              'port' => '587',
+              'encryption' => 'tls',
+			  'username' => 'lukisongroup@gmail.com',
+              //'password' => 'YmlzYTIwMTU=',
+              'password' => 'bisa2015',
+          ],
+        ],
     ],
     // 'params' => $params,
 ];

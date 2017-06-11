@@ -22,23 +22,21 @@ use api\modules\login\models\UserTokenSearch;
 use api\modules\login\models\UserProfil;
 
 /**
-  * RESET PASSWORD AFTER CODE NOTIFY : http://rt.kontrolgampang.com/login/user-reset-codes
-  * http://rt.kontrolgampang.com/login/user-resets
+  * SET CODE NOTIFY SEND TO EMAIL.
+  * http://rt.kontrolgampang.com/login/user-reset-codes
   * metohe   : POST
-  * result   : true "jika berhasil"; 
-  * result   : wrong-code "jika kode yang dimasukan dari email notify salah"
-  * result   : data-empty "jika data post salah"
-  * post body: username,ACCESS_UNIX,email,password_reset_token,password_hash
+  * result   : wrong-email "jika email tidak sama"
+  * result 	 : data-empty "jika tidak ada data" atau data yang dikirim salah
+  * post body: username,ACCESS_UNIX,email
   * @author ptrnov  <piter@lukison.com>
   * @since 1.2
  */
-class UserResetController extends ActiveController
+class UserResetCodeController extends ActiveController
 {	
 	/**
 	  * Source Database declaration.
 	  *
 	 */
-    //public $modelClass = 'common\models\User';
     public $modelClass = 'api\modules\login\models\UserToken';
 	// public $serializer = [
 		// 'class' => 'yii\rest\Serializer',
@@ -112,40 +110,57 @@ class UserResetController extends ActiveController
 		return $actions;
 	}
 	
+	/**
+     * Model Search Data.
+     */
 	public function actionCreate()
-    {
-        
-		$paramsBody 			= Yii::$app->request->bodyParams;		
-		$username				= isset($_REQUEST['username'])!=''?$_REQUEST['username']:'';
-		$access_unix			= isset($_REQUEST['ACCESS_UNIX'])!=''?$_REQUEST['ACCESS_UNIX']:'';
-		$email					= isset($_REQUEST['email'])!=''?$_REQUEST['email']:'';
-		$password_reset			= isset($_REQUEST['password_reset_token'])!=''?$_REQUEST['password_reset_token']:'';
-		$password_hash			= isset($_REQUEST['password_hash'])!=''?$_REQUEST['password_hash']:'';
+    {		
+        $paramsBody 	= Yii::$app->request->bodyParams;		
+		$username		= isset($_REQUEST['username'])!=''?$_REQUEST['username']:'';
+		$access_unix	= isset($_REQUEST['ACCESS_UNIX'])!=''?$_REQUEST['ACCESS_UNIX']:'';
+		$email			= isset($_REQUEST['email'])!=''?$_REQUEST['email']:'';		
 		
-		//MODEL
 		$modelCnt= UserToken::find()->where(['ACCESS_UNIX'=>$access_unix,'username'=>$username])->count();
-		$model= UserToken::find()->where(['ACCESS_UNIX'=>$access_unix,'username'=>$username])->one();		
+		$model= UserToken::find()->where(['ACCESS_UNIX'=>$access_unix,'username'=>$username])->one();
+		//$model->attributes=$params;
 		
+		//Reset Code.
+		$datetomecode=str_replace(':','',date('m:d H:i'));
+		$codeReset = str_replace(' ','',$datetomecode);
+				
 		if($modelCnt){
-			if($model->validateCodeReset($password_reset)){
-				//$model->attributes=$paramsBody;	
-				//SET PASSWORD MD5.
-				if(isset($paramsBody['password_hash'])){
-					$model->setPassword($paramsBody['password_hash']);
-				};	
-				// if(isset($paramsBody['password_reset'])){
-					// $model->setCodeReset($paramsBody['password_reset']);
-				// };				
+			if($model->email==$email){
+				//Email-Content
+				$contentBody= $this->renderPartial('_postmanBody',[
+					'model'=>$model,
+					'codeReset'=>$codeReset
+				]);	
+				
+				//Email-Send 			
+				Yii::$app->mailer->compose()
+				->setFrom(['lukisongroup@gmail.com' => 'POSTMAN-RAWATTAMAN'])
+				->setTo([$model->email])
+				//->setTo(['piter@lukison.com'])
+				//->setTo(['yosika@lukison.com','timbul.siregar@lukison.com','piter@lukison.com'])
+				//->setTo(['sales_esm@lukison.com','marketing_esm@lukison.com'])
+				->setSubject('CUSTOMER RESET PASSWORD')
+				->setHtmlBody($contentBody)
+				//->attach($filenameAll,[$filename,'xlsx'])
+				->send(); 
+				$model->attributes=$paramsBody;
+				
+				//Convert Code to MD5
+				//$model->password_reset_token=Yii::$app->security->generatePasswordHash($codeReset);
+				$model->setCodeReset($codeReset);
 				$model->save();
-				return array('result'=>'true');
+				return $model->attributes;
 			}else{
-				return array('result'=>'wrong-code');
+				return array('result'=>'wrong-email');
 			}
 		}else{
 			return array('result'=>'data-empty');
-		}
-	}
-	
+		} 		
+    }	
 }
 
 
