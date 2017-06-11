@@ -18,7 +18,7 @@ use yii\web\HttpException;
 
 use api\modules\master\models\Feedback;
 use api\modules\master\models\FeedbackSearch;
-use api\modules\login\models\UserToken;
+
 /**
   * Data user login by Token.
   *
@@ -103,30 +103,12 @@ class FeedbackController extends ActiveController
 	
 	public function actionCreate()
     {
-		$paramsBody = Yii::$app->request->bodyParams;
+		$params = Yii::$app->request->bodyParams;
         $model = new Feedback();				    
-        $model->attributes=$paramsBody;
+        $model->attributes=$params;
         $model->CREATE_AT = date('Y:m:d H:i:s');//'2017-12-12 00:00';
         if ($model->save()) 
         {
-			//if(isset($paramsBody['ACCESS_UNIX'])){
-				$modelUser= UserToken::find()->where(['ACCESS_UNIX'=>$paramsBody['ACCESS_UNIX']])->one();	
-			//}
-			$contentBody= $this->renderPartial('_postmanBody',[
-				'modelUser'=>$modelUser,
-				'NOTE'=>$model->NOTE
-			]);	
-			
-			//Email-Send 			
-			Yii::$app->mailer->compose()
-			->setFrom(['lukisongroup@gmail.com' => 'POSTMAN-RAWATTAMAN'])
-			//->setTo([$model->email])
-			//->setTo(['lukisongroup@gmail.com'])
-			->setTo(['rawat.taman@yahoo.com'])
-			->setSubject('CUSTOMER FEEDBACK')
-			->setHtmlBody($contentBody)
-			//->attach($filenameAll,[$filename,'xlsx'])
-			->send(); 
             return $model->attributes;
         } 
         else
