@@ -13,7 +13,7 @@
 		<table style="margin-button: 50px; width: 650px; margin: auto auto auto auto; border: 1px #fff solid; background: #fff; font-size: 12px; font-family: Verdana, sans-serif;" align="center">
 			<tbody>
 				<tr>
-					<td style="color: #fff; background:blue;text-align:center">
+					<td style="color: #fff; background:red;text-align:center">
 						<h2>CUSTOMER FEEDBACK</h2>
 					</td>
 				</tr>
