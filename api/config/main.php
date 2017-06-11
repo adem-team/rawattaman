@@ -77,6 +77,7 @@ return [
 							'login/user-token',
 							'login/user-reset-code',
 							'login/user-reset',
+							'login/user-link',
 							'login/user'
 						],						
 						'patterns' => [
