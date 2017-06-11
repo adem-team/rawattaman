@@ -27,7 +27,9 @@ use api\modules\login\models\UserProfil;
   * metohe   : POST
   * result   : wrong-email "jika email tidak sama"
   * result 	 : data-empty "jika tidak ada data" atau data yang dikirim salah
-  * post body: username,ACCESS_UNIX,email
+  * post body: username,ACCESS_UNIX,email.
+  * https://www.google.com/settings/security/lesssecureapps.  //ON
+  * https://accounts.google.com/b/0/DisplayUnlockCaptcha		//Continous
   * @author ptrnov  <piter@lukison.com>
   * @since 1.2
  */

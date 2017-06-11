@@ -22,13 +22,13 @@ use api\modules\login\models\UserTokenSearch;
 use api\modules\login\models\UserProfil;
 
 /**
-  * RESET PASSWORD AFTER CODE NOTIFY : http://rt.kontrolgampang.com/login/user-reset-codes
-  * http://rt.kontrolgampang.com/login/user-resets
+  * UPDATE LINK LOGIN
+  * http://rt.kontrolgampang.com/login/user-links
   * metohe   : POST
   * result   : true "jika berhasil"; 
   * result   : wrong-code "jika kode yang dimasukan dari email notify salah"
   * result   : data-empty "jika data post salah"
-  * post body: username,ACCESS_UNIX,email,password_reset_token,password_hash
+  * post body: ACCESS_UNIX,ID_FB,ID_LINKEDIN,ID_TWITTER,ID_GOOGLE
   * @author ptrnov  <piter@lukison.com>
   * @since 1.2
  */
