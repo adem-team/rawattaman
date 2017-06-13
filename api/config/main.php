@@ -79,6 +79,7 @@ return [
 							'login/user-reset',
 							'login/user-link',
 							'login/user-change-password',
+							'login/user-login',
 							'login/user'
 						],						
 						'patterns' => [

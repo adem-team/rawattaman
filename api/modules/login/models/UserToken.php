@@ -121,6 +121,11 @@ class UserToken extends \yii\db\ActiveRecord
     {
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
+	public function validateLoginPassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+
+    }
 	
 	public function setCodeReset($password)
     {
