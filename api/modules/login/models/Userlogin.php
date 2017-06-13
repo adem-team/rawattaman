@@ -20,7 +20,8 @@ class Userlogin extends \yii\db\ActiveRecord
 	const SCENARIO_USER = 'createuser';
 	
 	public $new_pass;
-    
+    public $old_pass;
+	
 	public static function getDb()
     {
         return Yii::$app->get('api_dbkg');
@@ -38,7 +39,7 @@ class Userlogin extends \yii\db\ActiveRecord
 			[['new_pass','username','status'], 'required','on' =>'updateuser'],
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
 			[['email'], 'string'],
-			[['id','status','create_at','update_at'],'safe'],
+			[['id','status','create_at','update_at','old_pass'],'safe'],
 			[['ACCESS_UNIX','ACCESS_GROUP','ACCESS_LEVEL','ACCESS_SITE','ONLINE','UUID'], 'safe'],
 		];
     }
