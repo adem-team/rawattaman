@@ -24,7 +24,7 @@ class UserTokenSearch extends UserToken
          return [
 			[['username','auth_key','password_hash','POSITION_ACCESS'], 'required','on' => self::SCENARIO_USER],	
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
-			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','email'], 'string'],
+			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','email','ID_ONESIGNAL'], 'string'],
 			[['updated_at'],'safe'],
 			[['ACCESS_UNIX','UUID'], 'safe'],
 		];
@@ -53,6 +53,7 @@ class UserTokenSearch extends UserToken
 		$query->orWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
 		$query->orWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
 		$query->orWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+		$query->orWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
 	
 		// $query->andFilterWhere(['like', ]);
 		// return $dataProvider;

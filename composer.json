@@ -22,7 +22,7 @@
         "dmstr/yii2-adminlte-asset": "2.*",
         "mdmsoft/yii2-admin": "~2.0",
         "ptrnov/yii2-fusionchart": "*",
-        "kartik-v/yii2-grid": "dev-master",
+        "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-krajee-base": "dev-master",
         "kartik-v/yii2-widgets": "*",
         "kartik-v/yii2-tree-manager": "@dev",
@@ -33,7 +33,7 @@
         "kartik-v/yii2-dropdown-x": "*",
         "cross-solution/bootstrap3-dialog": "dev-master@dev",
         "kartik-v/yii2-dialog": "dev-master",
-        "kartik-v/yii2-tabs-x": "*",
+        "kartik-v/yii2-tabs-x": "@dev",
         "zyx/zyx-phpmailer": "@stable"
     },
     "require-dev": {

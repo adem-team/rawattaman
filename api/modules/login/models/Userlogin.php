@@ -40,7 +40,7 @@ class Userlogin extends \yii\db\ActiveRecord
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
 			[['email'], 'string'],
 			[['id','status','create_at','update_at','old_pass'],'safe'],
-			[['ACCESS_UNIX','ACCESS_GROUP','ACCESS_LEVEL','ACCESS_SITE','ONLINE','UUID'], 'safe'],
+			[['ACCESS_UNIX','ACCESS_GROUP','ACCESS_LEVEL','ACCESS_SITE','ONLINE','UUID','ID_ONESIGNAL'], 'safe'],
 		];
     }
 
@@ -61,6 +61,7 @@ class Userlogin extends \yii\db\ActiveRecord
 			'ACCESS_SITE' => Yii::t('app', 'ACCESS_SITE'),
 			'ONLINE' => Yii::t('app', 'ONLINE'),
 			'UUID' => Yii::t('app', 'UUID')			
+			'ID_ONESIGNAL' => Yii::t('app', 'ID_ONESIGNAL')			
         ];
     }
 	
@@ -115,6 +116,9 @@ class Userlogin extends \yii\db\ActiveRecord
 			},
 			'UUID'=>function($model){
 				return $model->UUID;
+			},					
+			'ID_ONESIGNAL'=>function($model){
+				return $model->ID_ONESIGNAL;
 			},					
 			'PROFILE_NM'=>function(){
 				return $this->userProfilTbl!=''?$this->userProfilTbl->NM_DEPAN:$this->username;

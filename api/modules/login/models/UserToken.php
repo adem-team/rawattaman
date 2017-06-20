@@ -43,7 +43,7 @@ class UserToken extends \yii\db\ActiveRecord
 			[['username','auth_key','password_hash','POSITION_ACCESS'], 'required','on' => self::SCENARIO_USER],		
 			[['username','email','new_pass'], 'required','on' => self::SCENARIO_API],		
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
-			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN'], 'string'],
+			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','ID_ONESIGNAL'], 'string'],
 			[['updated_at'],'safe'],
 			[['ACCESS_UNIX','UUID','new_pass','email'], 'safe'],
 		];
@@ -62,6 +62,7 @@ class UserToken extends \yii\db\ActiveRecord
 			'ID_GOOGLE' => Yii::t('app', 'ID_GOOGLE'),		
 			'ID_TWITTER' => Yii::t('app', 'ID_TWITTER'),		
 			'ID_LINKEDIN' => Yii::t('app', 'ID_LINKEDIN'),		
+			'ID_ONESIGNAL' => Yii::t('app', 'ID_ONESIGNAL'),		
         ];
     }
 	
@@ -87,16 +88,19 @@ class UserToken extends \yii\db\ActiveRecord
 				return $model->UUID;
 			},
 			'ID_FB'=>function($model){
-					return $model->ID_FB;
+				return $model->ID_FB;
 			},
 			'ID_GOOGLE'=>function($model){
-					return $model->ID_GOOGLE;
+				return $model->ID_GOOGLE;
 			},
 			'ID_TWITTER'=>function($model){
-					return $model->ID_TWITTER;
+				return $model->ID_TWITTER;
 			},
 			'ID_LINKEDIN'=>function($model){
-					return $model->ID_LINKEDIN;
+				return $model->ID_LINKEDIN;
+			},
+			'ID_ONESIGNAL'=>function($model){
+				return $model->ID_ONESIGNAL;
 			},
 			'NAMA'=>function(){
 				return $this->profileTbl!=''?$this->profileTbl->NM_DEPAN:'none';

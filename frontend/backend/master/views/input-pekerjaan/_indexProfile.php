@@ -112,9 +112,9 @@ use kartik\detail\DetailView;
 		'condensed'=>true,
 		'hover'=>true,
 		'panel'=>[
-					'heading'=>'<div style="float:left;margin-right:10px" class="fa fa-1x fa-list-alt"></div><div><h6 class="modal-title"><b> User Profile</b></h6></div>',
-					'type'=>DetailView::TYPE_INFO,
-				],
+			'heading'=>'<div style="float:left;margin-right:10px" class="fa fa-1x fa-list-alt"></div><div><h6 class="modal-title"><b> User Profile</b></h6></div>',
+			'type'=>DetailView::TYPE_INFO,
+		],
 		'saveOptions'=>[ 
 			'id' =>'saveBtn',
 			//'value'=>'/master/customers/viewcust?id='.$model->CUST_KD,
