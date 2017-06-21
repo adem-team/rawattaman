@@ -49,14 +49,19 @@ class UserTokenSearch extends UserToken
 
 		$query->orWhere(['username'=> $this->username]);
 		$query->orWhere(['email'=> $this->email]);
-		$query->orWhere(['ID_FB'=> $this->ID_FB]);
-		$query->orWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
-		$query->orWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
-		$query->orWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
-		$query->orWhere(['ID_YAHOO'=> $this->ID_YAHOO]);
-		$query->orWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
+		// $query->orWhere(['ID_FB'=> $this->ID_FB]);
+		// $query->orWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
+		// $query->orWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
+		// $query->orWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+		//$query->orWhere(['ID_YAHOO'=> $this->ID_YAHOO]);
+		//$query->orWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
 	
-		// $query->andFilterWhere(['like', ]);
+		$query->andFilterWhere(['ID_YAHOO'=> $this->ID_YAHOO]);
+		$query->andFilterWhere(['ID_FB'=> $this->ID_FB]);
+		$query->andFilterWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
+		$query->andFilterWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
+		$query->andFilterWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+		$query->andFilterWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
 		// return $dataProvider;
 		if($dataProvider->getmodels()){		
 			return $dataProvider;
