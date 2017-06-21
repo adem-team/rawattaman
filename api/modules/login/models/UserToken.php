@@ -43,7 +43,7 @@ class UserToken extends \yii\db\ActiveRecord
 			[['username','auth_key','password_hash','POSITION_ACCESS'], 'required','on' => self::SCENARIO_USER],		
 			[['username','email','new_pass'], 'required','on' => self::SCENARIO_API],		
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
-			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','ID_ONESIGNAL'], 'string'],
+			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','ID_YAHOO','ID_ONESIGNAL'], 'string'],
 			[['updated_at'],'safe'],
 			[['ACCESS_UNIX','UUID','new_pass','email'], 'safe'],
 		];
@@ -62,6 +62,7 @@ class UserToken extends \yii\db\ActiveRecord
 			'ID_GOOGLE' => Yii::t('app', 'ID_GOOGLE'),		
 			'ID_TWITTER' => Yii::t('app', 'ID_TWITTER'),		
 			'ID_LINKEDIN' => Yii::t('app', 'ID_LINKEDIN'),		
+			'ID_YAHOO' => Yii::t('app', 'ID_YAHOO'),		
 			'ID_ONESIGNAL' => Yii::t('app', 'ID_ONESIGNAL'),		
         ];
     }
@@ -98,6 +99,9 @@ class UserToken extends \yii\db\ActiveRecord
 			},
 			'ID_LINKEDIN'=>function($model){
 				return $model->ID_LINKEDIN;
+			},
+			'ID_YAHOO'=>function($model){
+				return $model->ID_YAHOO;
 			},
 			'ID_ONESIGNAL'=>function($model){
 				return $model->ID_ONESIGNAL;

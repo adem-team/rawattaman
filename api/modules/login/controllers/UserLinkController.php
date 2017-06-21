@@ -121,6 +121,7 @@ class UserLinkController extends ActiveController
 		$ID_GOOGLE		= isset($_REQUEST['ID_GOOGLE'])!=''?$_REQUEST['ID_GOOGLE']:'';
 		$ID_TWITTER		= isset($_REQUEST['ID_TWITTER'])!=''?$_REQUEST['ID_TWITTER']:'';
 		$ID_LINKEDIN	= isset($_REQUEST['ID_LINKEDIN'])!=''?$_REQUEST['ID_LINKEDIN']:'';
+		$ID_YAHOO		= isset($_REQUEST['ID_YAHOO'])!=''?$_REQUEST['ID_YAHOO']:'';
 		
 		//MODEL
 		// $modelCnt= UserToken::find()->where(['ACCESS_UNIX'=>$access_unix,'username'=>$username])->count();
@@ -140,6 +141,9 @@ class UserLinkController extends ActiveController
 			};
 			if(isset($paramsBody['ID_LINKEDIN']) && $paramsBody['ID_LINKEDIN']!=''){
 				$model->ID_LINKEDIN=$paramsBody['ID_LINKEDIN'];
+			};
+			if(isset($paramsBody['ID_YAHOO']) && $paramsBody['ID_YAHOO']!=''){
+				$model->ID_YAHOO=$paramsBody['ID_YAHOO'];
 			};
 			$model->save();
 			return array('result'=>'true');			
