@@ -56,12 +56,12 @@ class UserTokenSearch extends UserToken
 		//$query->orWhere(['ID_YAHOO'=> $this->ID_YAHOO]);
 		//$query->orWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
 	
-		$query->andFilterWhere(['ID_YAHOO'=> $this->ID_YAHOO]);
-		$query->andFilterWhere(['ID_FB'=> $this->ID_FB]);
-		$query->andFilterWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
-		$query->andFilterWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
-		$query->andFilterWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
-		$query->andFilterWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
+		$query->orFilterWhere(['ID_YAHOO'=> $this->ID_YAHOO]);
+		$query->orFilterWhere(['ID_FB'=> $this->ID_FB]);
+		$query->orFilterWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
+		$query->orFilterWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
+		$query->orFilterWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+		$query->orFilterWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
 		// return $dataProvider;
 		if($dataProvider->getmodels()){		
 			return $dataProvider;
