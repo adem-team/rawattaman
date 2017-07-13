@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use kartik\widgets\Select2;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -34,11 +34,11 @@ $this->registerCss("
 	}
 	/* HEIGHT PANEL*/
 	#gv-jadwal-input .panel {
-		height: 500px;
+		height: 450px;
 	}
 	/* CONTINER HIGHT */
 	#gv-jadwal-input .kv-grid-container{
-		height: 500px;
+		height: 450px;
 	}
 	/* PANEL COLOR */
 	#gv-product .panel-default > .panel-heading {
@@ -71,60 +71,20 @@ $this->registerCss("
 					  <i class="fa fa-circle-thin fa-stack-2x"  style="color:#25ca4f"></i>
 					  <i class="fa fa-remove fa-stack-1x" style="color:#01190d"></i>
 					</span>','',['title'=>'FINISH']);
+		}elseif($stt==3){
+			return Html::a('<span class="fa-stack fa-xl">
+					  <i class="fa fa-circle fa-stack-2x" style="color:yellow"></i>
+					  <i class="fa fa-star-half-full fa-stack-1x style="color:#05944d"></i>
+					</span>','',['title'=>'FINISH']);
+		}elseif($stt==4){
+			return Html::a('<span class="fa-stack fa-xl">
+					  <i class="fa fa-circle fa-stack-2x" style="color:red"></i>
+					  <i class="fa fa-star-half-full fa-stack-1x style="color:#05944d"></i>
+					</span>','',['title'=>'FINISH']);
 		}
 	};
-	/* $attViewFharga=[	
-		[
-			'columns' => [
-				[
-					'attribute'=>'ITEM_ID', 
-					'label'=>'ITEM_ID',
-					//'value'=> $dataProvider[0]['ITEM_ID'],
-					'displayOnly'=>true,
-					'valueColOptions'=>['style'=>'width:30%;font-family: tahoma ;font-size: 8pt;'], 
-					'labelColOptions'=>['style'=>'width:130px;font-family: tahoma ;font-size: 8pt;'], 
-				],
-				[
-					'attribute'=>'OUTLET_CODE', 
-					'format'=>'raw',
-					'label'=>'START TIME',
-					'valueColOptions'=>['style'=>'font-family: tahoma ;font-size: 8pt;'], 
-					'labelColOptions'=>['style'=>'width:130px; font-family: tahoma ;font-size: 8pt;'], 
-					'displayOnly'=>true
-				],
-			],
-		],
-		[
-			'columns' => [
-				[
-					'attribute'=>'ITEM_NM', 
-					'label'=>'SALES ACCESS_UNIX',
-					'valueColOptions'=>['style'=>'width:30%;font-family: tahoma ;font-size: 8pt;'], 
-					'labelColOptions'=>['style'=>'width:130px;font-family: tahoma ;font-size: 8pt;'], 
-					'displayOnly'=>true
-				],
-				[
-					'attribute'=>'SATUAN',
-					'format'=>'raw',
-					'label'=>'END TIME',
-					'valueColOptions'=>['style'=>'font-family: tahoma ;font-size: 8pt;'], 
-					'labelColOptions'=>['style'=>'width:130px;font-family: tahoma ;font-size: 8pt;'], 
-					'displayOnly'=>true
-				],
-			],
-		]			
-	];
-
-	$dvViewFharga=DetailView::widget([
-		'id'=>'dv-fharga-view',
-		'model' => $modelItemInfo,
-		'attributes'=>$attViewFharga,
-		'condensed'=>true,
-		'hover'=>true,
-		// 'panel'=>false,
-		// 'mode'=>DetailView::MODE_VIEW,
-		
-	]); */
+	
+	$dscLabel='<b>Keterangan </b>: '.sttMsg(0).'=PLAN. '.sttMsg(1).'=PROGRESS. '.sttMsg(2).'=FINISH. '.sttMsg(3).'=Enable Rating.'.sttMsg(4).'=Disable Rating.';
 	
 	$bColorJadwal='rgba(80, 150, 241, 1)';
 	$gvAttjadwalInput=[
@@ -174,14 +134,14 @@ $this->registerCss("
 				'layout'=>'{picker}{remove}{input}'
 			],
 			'filter'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','20px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50px',''),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','20px',$bColorJadwal),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','20px',''),
 			
 		],			
 		//HARI
@@ -189,14 +149,14 @@ $this->registerCss("
 			'attribute'=>'HARI',
 			//'label'=>'Cutomer',
 			'filterType'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','20px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('left','50px',''),
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','20px',$bColorJadwal),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('left','20px',''),
 			
 		]		
 		,//JAM_MASUK
@@ -212,14 +172,14 @@ $this->registerCss("
 				]
 			],			
 			'filter'=>true,
-			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','50px'),
+			'filterOptions'=>Yii::$app->gv->gvFilterContainHeader('0','20px'),
 			'hAlign'=>'right',
 			'vAlign'=>'middle',
 			'mergeHeader'=>false,
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50px',''),			
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','20px',$bColorJadwal),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','20px',''),			
 		]			
 		,//JAM_KELUAR
 		[
@@ -239,8 +199,8 @@ $this->registerCss("
 			'mergeHeader'=>false,
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50px',''),			
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','20px',$bColorJadwal),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','20px',''),			
 		]
 		,//STATUS
 		[
@@ -260,9 +220,32 @@ $this->registerCss("
 			'mergeHeader'=>false,
 			'noWrap'=>false,
 			//gvContainHeader($align,$width,$bColorJadwal)
-			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','50px',$bColorJadwal),
-			'contentOptions'=>Yii::$app->gv->gvContainBody('center','50px',''),			
-		]	
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','20px',$bColorJadwal),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','20px',''),			
+		],
+		//ACTION
+		[
+			'class' => 'kartik\grid\ActionColumn',
+			'template' => '{rating}',
+			'header'=>'ACTION',
+			'dropdown' => true,
+			'dropdownOptions'=>[
+				'class'=>'pull-right dropdown',
+				'style'=>'width:60px;background-color:#E6E6FA'				
+			],
+			'dropdownButton'=>[
+				'label'=>'ACTION',
+				'class'=>'btn btn-default btn-xs',
+				'style'=>'width:100%;'		
+			],
+			'buttons' => [
+				'rating' =>function ($url, $model){
+					return  tombolRating($url, $model);
+				}
+			], 
+			'headerOptions'=>Yii::$app->gv->gvContainHeader('center','10px',$bColorJadwal,'#ffffff'),
+			'contentOptions'=>Yii::$app->gv->gvContainBody('center','10px',''),
+		]
 	
 	];
 
@@ -290,6 +273,7 @@ $this->registerCss("
 			'heading'=>tombolCreateJadwal($getAccessUnix),
 			//'type'=>'info',
 			'before'=>false,
+			'after'=>$dscLabel,
 			'footer'=>false,
 			
 		],

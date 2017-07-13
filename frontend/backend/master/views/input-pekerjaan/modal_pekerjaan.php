@@ -104,6 +104,39 @@ use yii\helpers\Url;
 		// }
 	}
 		
+	/*
+	 * Button - SET TO RATING.
+	*/
+	function tombolRating($url, $model){
+		// if(getPermission()){
+			//Jika BTN_CREATE Show maka BTN_CVIEW Show.
+			// if(getPermission()->BTN_VIEW==1 OR getPermission()->BTN_CREATE==1){
+				$title1 = Yii::t('app',' SetTo Rating');
+				$options1 = [
+					'value'=>url::toRoute(['/master/input-pekerjaan/create-rating','id'=>$model->ID]),
+					'id'=>'button-rating-create',
+					'class'=>"btn btn-default btn-xs",      
+					'style'=>['text-align'=>'left','width'=>'100%', 'height'=>'25px','border'=> 'none'],
+				];
+				$icon1 = '
+					<span class="fa-stack fa-sm text-justify">
+						  <i class="fa fa-circle fa-stack-2x" style="color:yellow"></i>
+						  <i class="fa fa-star-half-full fa-stack-1x style="color:#05944d"></i>
+						</span>		
+				'; 
+				$icon2 = '
+					<span class="fa-stack fa-sm text-justify">
+						  <i class="fa fa-circle fa-stack-2x" style="color:red"></i>
+						  <i class="fa fa-star-half-full fa-stack-1x style="color:#05944d"></i>
+						</span>		
+				'; 			
+				$icon = $model->STATUS==1?$icon1:$icon2;
+				$label1 = $icon . '  ' . $title1;
+				$content = Html::button($label1,$options1);		
+				return '<li>'.$content.'</li>';
+			// }
+		// }
+	}
 /**
 * ===============================
  * Button & Link Modal item
@@ -175,7 +208,7 @@ use yii\helpers\Url;
 				<i class="fa fa-plus fa-stack-1x" style="color:#fbfbfb"></i>
 			</span><b> Tambahkan Pekerjaan </b>
 		',		
-		'size' =>'modal-dm',
+		'size' =>'modal-lg',
 		'headerOptions'=>[
 			'style'=> 'border-radius:5px; background-color:'.$HeaderColor_Rating,
 		],

@@ -24,6 +24,8 @@ use Yii;
  */
 class Rating extends \yii\db\ActiveRecord
 {
+	public $hari;
+	Public $todolist;
     /**
      * @inheritdoc
      */
@@ -40,8 +42,8 @@ class Rating extends \yii\db\ActiveRecord
         return [
             [['JADWAL_ID', 'NILAI', 'STATUS'], 'integer'],
             [['NILAI_KETERANGAN'], 'string'],
-            [['TGL', 'JAM_MASUK', 'JAM_KELUAR', 'CREATE_AT', 'UPDATE_AT'], 'safe'],
-            [['ACCESS_UNIX', 'ID_PEKERJA', 'CREATE_BY', 'UPDATE_BY'], 'string', 'max' => 50],
+            [['TGL', 'JAM_MASUK', 'JAM_KELUAR', 'CREATE_AT', 'UPDATE_AT','hari','todolist','ID_PEKERJA'], 'safe'],
+            [['ACCESS_UNIX',  'CREATE_BY', 'UPDATE_BY'], 'string', 'max' => 50],
         ];
     }
 
@@ -54,7 +56,7 @@ class Rating extends \yii\db\ActiveRecord
             'ID' => Yii::t('app', 'ID'),
             'JADWAL_ID' => Yii::t('app', 'Jadwal  ID'),
             'ACCESS_UNIX' => Yii::t('app', 'Access  Unix'),
-            'ID_PEKERJA' => Yii::t('app', 'Id  Pekerja'),
+            'ID_PEKERJA' => Yii::t('app', 'Pekerja/Gardener'),
             'NILAI' => Yii::t('app', 'Nilai'),
             'NILAI_KETERANGAN' => Yii::t('app', 'Nilai  Keterangan'),
             'TGL' => Yii::t('app', 'Tgl'),

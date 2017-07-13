@@ -24,7 +24,7 @@ class UserTokenSearch extends UserToken
          return [
 			[['username','auth_key','password_hash','POSITION_ACCESS'], 'required','on' => self::SCENARIO_USER],	
 			[['username','auth_key','password_hash','password_reset_token'], 'string'],
-			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','email'], 'string'],
+			[['ID_FB','ID_GOOGLE','ID_TWITTER','ID_LINKEDIN','ID_YAHOO','email','ID_ONESIGNAL'], 'string'],
 			[['updated_at'],'safe'],
 			[['ACCESS_UNIX','UUID'], 'safe'],
 		];
@@ -49,12 +49,19 @@ class UserTokenSearch extends UserToken
 
 		$query->orWhere(['username'=> $this->username]);
 		$query->orWhere(['email'=> $this->email]);
-		$query->orWhere(['ID_FB'=> $this->ID_FB]);
-		$query->orWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
-		$query->orWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
-		$query->orWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+		// $query->orWhere(['ID_FB'=> $this->ID_FB]);
+		// $query->orWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
+		// $query->orWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
+		// $query->orWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+		//$query->orWhere(['ID_YAHOO'=> $this->ID_YAHOO]);
+		//$query->orWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
 	
-		// $query->andFilterWhere(['like', ]);
+		$query->orFilterWhere(['ID_YAHOO'=> $this->ID_YAHOO]);
+		$query->orFilterWhere(['ID_FB'=> $this->ID_FB]);
+		$query->orFilterWhere(['ID_GOOGLE'=> $this->ID_GOOGLE]);
+		$query->orFilterWhere(['ID_TWITTER'=> $this->ID_TWITTER]);
+		$query->orFilterWhere(['ID_LINKEDIN'=> $this->ID_LINKEDIN]);
+		$query->orFilterWhere(['ID_ONESIGNAL'=> $this->ID_ONESIGNAL]);
 		// return $dataProvider;
 		if($dataProvider->getmodels()){		
 			return $dataProvider;

@@ -75,10 +75,16 @@ return [
                         'class' => 'yii\rest\UrlRule',
                         'controller' =>[
 							'login/user-token',
+							'login/user-reset-code',
+							'login/user-reset',
+							'login/user-link',
+							'login/user-change-password',
+							'login/user-login',
 							'login/user'
 						],						
 						'patterns' => [
 							'PUT' => 'update',
+							//'PUT,PATCH {id}' => 'update',
 							'POST' => 'create',
 							'GET,HEAD' => 'index'							
 						]
@@ -211,7 +217,7 @@ return [
 			'format' => yii\web\Response::FORMAT_JSON,
 			'charset' => 'UTF-8',
 			// ...
-		]
+		],		
     ],
     // 'params' => $params,
 ];
