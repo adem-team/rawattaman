@@ -24,20 +24,20 @@ AppAsset::register($this);
 			skin-blue sidebar-mini sidebar-collapse
 		!-->
 		<!--<body class="skin-blue sidebar-collapse" style="min-height:680px"> 	!-->	
-		<body class="skin-blue " style="min-height:610px"> 		
+		<body class="skin-blue " style="min-height:680px"> 		
 			<! - NOT LOGIN- Author : -ptr.nov- >
 			<?php if (Yii::$app->user->isGuest) { ?>
-				<?php $this->beginBody() ?>
-					<div>
+				<?php $this->beginBody(['id'=>'page-top','class'=>'index']) ?>
+					<div class="wrap">
 						<!-- NAV BAR !-->
 						<?=$this->render('main-navbarNologin')?>
 						<!-- BODY CONTAINER !-->
-						<div style="margin-top:-20px;">
+						<div>
 							<?= $content ?>
 						</div>
 					</div>
 					<!-- FOOTER !-->
-					<?php //$this->render('main-footer')?>
+					<?=$this->render('main-footer')?>
 				<?php $this->endBody() ?>
 			<?php }; ?>
 			<! -LOGIN- Author : -ptr.nov- >

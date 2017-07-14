@@ -79,8 +79,7 @@ class SiteController extends Controller
 		 
 		if (\Yii::$app->user->isGuest) {
             $model = new LoginForm();
-            //return $this->render('indexNoLogin', [
-            return $this->render('index_nologin', [
+            return $this->render('indexNoLogin', [
                 'model' => $model,
             ]);
         } else {
@@ -130,10 +129,7 @@ class SiteController extends Controller
             // return $this->render('index', [
                 // 'model' => $model,
             // ]);
-			//return $this->goHome();
-			$js='$("#modal_login").modal("show")';
-            $this->getView()->registerJs($js);
-            return $this->render('login',['model' => $model]);
+			 return $this->goHome();
         }
     }
 
